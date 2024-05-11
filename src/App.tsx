@@ -1,4 +1,3 @@
-import React from 'react'
 import './App.css'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthLayout from "./Modules/SharedModules/components/AuthLayout/AuthLayout";
