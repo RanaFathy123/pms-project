@@ -1,0 +1,16 @@
+.sidebar-container .ps-sidebar-container{
+    color: white;
+    height: 100vh;
+    background-color: rgba(14, 56, 47, 1);
+}
+.sidebar-container .ps-sidebar-container .ps-menu-button:hover{
+   color: white;
+   background-color: transparent !important;
+}
+.fa-chevron-right{
+    background-color: rgba(239, 155, 40, 1); 
+    
+}
+.fa-chevron-left{
+    background-color: rgba(239, 155, 40, 1); 
+}

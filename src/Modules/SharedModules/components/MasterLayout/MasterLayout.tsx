@@ -3,17 +3,18 @@ import NavBar from '../NavBar/NavBar'
 import SideBar from '../SideBar/SideBar'
 
 export default function MasterLayout() {
-  return (
-    <div>
+  return <>
+    <div className=' w-100'>
       <NavBar/>
-      <div className="row">
-        <div className="col-md-3">
+      <header/>
+      </div>
+      <div className=" d-flex">
+        <div >
           <SideBar/>
         </div>
-        <div className="col-md-8">
+        <div >
         <Outlet/>
         </div>
       </div>
-    </div>
-  )
+      </>
 }
