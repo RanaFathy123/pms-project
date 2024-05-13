@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill,
+:-webkit-autofill:hover,
+.form-control:-webkit-autofill,
+:-webkit-autofill:focus,
+.form-control:-webkit-autofill,
+:-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: white !important;
+  background-color: transparent !important;
+  outline: 0 !important;
+}

@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthLayout from "./Modules/SharedModules/components/AuthLayout/AuthLayout";
 import NotFound from "./Modules/SharedModules/components/NotFound/NotFound";
@@ -15,8 +15,7 @@ import TasksList from "./Modules/TasksModule/components/TasksList/TasksList";
 import ProjectList from "./Modules/ProjectModule/components/ProjectList/ProjectList";
 import TasksData from "./Modules/TasksModule/components/TasksData/TasksData";
 import ProjectData from "./Modules/ProjectModule/components/ProjectData/ProjectData";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const routes = createBrowserRouter([
@@ -26,27 +25,26 @@ const App = () => {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Login /> },
-        { path: "login", element: <Login/> },
+        { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "forgetpass", element: <ForgetPassword /> },
-        { path: "resetpass", element: <ResetPassword /> },
-        { path: "verifyaccount", element: <VerifyAccount /> },
-        { path: "changepassword", element: <ChangePassword /> },
+        { path: "forget-pass", element: <ForgetPassword /> },
+        { path: "reset-pass", element: <ResetPassword /> },
+        { path: "verify-account", element: <VerifyAccount /> },
+        { path: "change-password", element: <ChangePassword /> },
         { path: "*", element: <NotFound /> },
       ],
     },
     {
       path: "/dashboard",
-      element:
-       <MasterLayout/>,
+      element: <MasterLayout />,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
         { path: "users", element: <UsersList /> },
         { path: "tasks", element: <TasksList /> },
-        { path: "taskdata", element: <TasksData /> },
+        { path: "task-data", element: <TasksData /> },
         { path: "projects", element: <ProjectList /> },
-        { path: "projectdata", element: <ProjectData /> },
+        { path: "project-data", element: <ProjectData /> },
         { path: "*", element: <NotFound /> },
       ],
     },
@@ -54,7 +52,7 @@ const App = () => {
 
   return (
     <div>
-            <ToastContainer/>
+      <ToastContainer />
       <RouterProvider router={routes} />
     </div>
   );
