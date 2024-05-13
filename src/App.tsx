@@ -17,6 +17,8 @@ import TasksData from "./Modules/TasksModule/components/TasksData/TasksData";
 import ProjectData from "./Modules/ProjectModule/components/ProjectData/ProjectData";
 import { ToastContainer } from "react-toastify";
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = () => {
   const routes = createBrowserRouter([
     {
