@@ -3,14 +3,15 @@ import "./Login.css";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FormData } from "../../../../interfaces/Auth.ts";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-
+import { AuthContext } from "../../../../context/AuthContext.tsx";
 
 // Function
 export default function Login() {
+  const { baseUrl, saveLoginData } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   // useForm
@@ -31,12 +32,10 @@ export default function Login() {
   // Send Data to Api
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(
-        "https://upskilling-egypt.com:3003/api/v1/Users/Login",
-        data
-      );
+      const response = await axios.post(`${baseUrl}/Users/Login`, data);
       localStorage.setItem("token", response.data.token);
       toast.success("Login Success", response.data.message);
+      saveLoginData();
       navigate("/dashboard");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -114,7 +113,7 @@ export default function Login() {
                           borderRight: showPassword ? "none" : "",
                           borderLeft: showPassword ? "none" : "",
                           borderRadius: showPassword ? "0px" : "",
-                          color: showPassword  ? "white" :  "",
+                          color: showPassword ? "white" : "",
                         }}
                         placeholder="password"
                         {...register("password", {
