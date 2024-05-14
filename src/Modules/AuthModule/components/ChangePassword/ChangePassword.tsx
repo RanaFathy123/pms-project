@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import logo from "../../../../assets/images/PMS 3.svg";
 import { FormDataChangPass } from "../../../../interfaces/Auth";
 import "../Login/Login.css";
-import "./ChangePassword.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export default function ChangePassword() {
 
@@ -13,7 +13,10 @@ export default function ChangePassword() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<FormDataChangPass>();
+
+  const { baseUrl } = useContext(AuthContext);
 
   // Password eye
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -22,43 +25,50 @@ export default function ChangePassword() {
     setShowPassword((prevState: boolean) => !prevState);
   };
 
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+
+  const togglePasswordVisibility2 = (): void => {
+    setShowNewPassword((prevState: boolean) => !prevState);
+  };
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+
+  const togglePasswordVisibility3 = (): void => {
+    setShowConfirmPassword((prevState: boolean) => !prevState);
+  };
+
   const onSubmit = async (data: FormDataChangPass) => {
-    // console.log(data);   
     try {
-      const response = await axios.put(
-        "https://upskilling-egypt.com:3006/api/v1/Users/ChangePassword",
-        data,
-        {
-          headers: {
-           Authorization: `Bearer ${ localStorage.getItem("token")}` ,
-          },
-        }
-      );
-      console.log(response);
-      toast.success("Change Password Success", response.data.message);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      toast.error(error.response.data.message || "Change Password Fail");
+      let response = await axios.put(`${baseUrl}/Users/ChangePassword`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${ localStorage.getItem("token")}` },
+      }
+    )
+      // logout();
+      toast.success('Password has been updated successfully');
+    }
+    catch(error: any) {
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <>
-      <div className="p-4 background-pass">
+      <div className="background-pass">
         <div className="mt-1 text-center">
                 <img src={logo} alt="" className="w-50" />
         </div>
         <div className="form">
           <form
-            className="p-4 rounded-4 my-5"
+            className="p-3 rounded-4 my-5"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="text my-1">
               <h2>Change Password</h2>
             </div>
                 <div className="row">
-                  <div className="col-md-11 mt-3 ">
+                  <div className="col-md-11 mt-3 p-3 ">
                     {/* Old Password */}
                     <div className="visibilty-password input m-3">
                       <label
@@ -68,7 +78,6 @@ export default function ChangePassword() {
                         oldPassword
                       </label>
                       <input
-                        id="exampleFormControlInput2"
                         type={showPassword ? "text" : "password"}
                         className="form-control shadow-none"
                         style={{
@@ -121,18 +130,17 @@ export default function ChangePassword() {
                         New Password
                       </label>
                       <input
-                        id="exampleFormControlInput2"
-                        type={showPassword ? "text" : "password"}
+                        type={showNewPassword ? "text" : "password"}
                         className="form-control shadow-none"
                         style={{
-                          backgroundColor: showPassword
+                          backgroundColor: showNewPassword
                             ? "transparent"
                             : "#fff",
-                          borderTop: showPassword ? "none" : "",
-                          borderRight: showPassword ? "none" : "",
-                          borderLeft: showPassword ? "none" : "",
-                          borderRadius: showPassword ? "0px" : "",
-                          color: showPassword  ? "white" :  "",
+                          borderTop: showNewPassword ? "none" : "",
+                          borderRight: showNewPassword ? "none" : "",
+                          borderLeft: showNewPassword ? "none" : "",
+                          borderRadius: showNewPassword ? "0px" : "",
+                          color: showNewPassword  ? "white" :  "",
                         }}
                         placeholder="Enter your New Password"
                         {...register("newPassword", {
@@ -149,12 +157,12 @@ export default function ChangePassword() {
                       <button
                         className="btn btn-outline-secondary for-visibilty-password-button"
                         type="button"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility2}
                         title=" btn"
                       >
                         <i
                           className={`fa-regular fa-eye${
-                            !showPassword ? "-slash" : ""
+                            !showNewPassword ? "-slash" : ""
                           }`}
                         ></i>
                       </button>
@@ -174,22 +182,24 @@ export default function ChangePassword() {
                         Confirm New Password
                       </label>
                       <input
-                        id="exampleFormControlInput2"
-                        type={showPassword ? "text" : "password"}
+                        type={showConfirmPassword ? "text" : "password"}
                         className="form-control shadow-none"
                         style={{
-                          backgroundColor: showPassword
+                          backgroundColor: showConfirmPassword
                             ? "transparent"
                             : "#fff",
-                          borderTop: showPassword ? "none" : "",
-                          borderRight: showPassword ? "none" : "",
-                          borderLeft: showPassword ? "none" : "",
-                          borderRadius: showPassword ? "0px" : "",
-                          color: showPassword  ? "white" :  "",
+                          borderTop: showConfirmPassword ? "none" : "",
+                          borderRight: showConfirmPassword ? "none" : "",
+                          borderLeft: showConfirmPassword ? "none" : "",
+                          borderRadius: showConfirmPassword ? "0px" : "",
+                          color: showConfirmPassword  ? "white" :  "",
                         }}
                         placeholder="Confirm New Password"
                         {...register("confirmNewPassword", {
                           required: "confirmNewPassword is required ",
+                          validate: (value) =>
+                            value === watch("newPassword") ||
+                            "the passwords dont match ",
                           pattern: {
                             value:
                               /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
@@ -202,12 +212,12 @@ export default function ChangePassword() {
                       <button
                         className="btn btn-outline-secondary for-visibilty-password-button"
                         type="button"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility3}
                         title=" btn"
                       >
                         <i
                           className={`fa-regular fa-eye${
-                            !showPassword ? "-slash" : ""
+                            !showConfirmPassword ? "-slash" : ""
                           }`}
                         ></i>
                       </button>
@@ -237,3 +247,5 @@ export default function ChangePassword() {
     </>
   )
 }
+
+
