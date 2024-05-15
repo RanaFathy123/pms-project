@@ -1,4 +1,5 @@
 import "./App.css";
+import 'react-toastify/dist/ReactToastify.css';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthLayout from "./Modules/SharedModules/components/AuthLayout/AuthLayout";
 import NotFound from "./Modules/SharedModules/components/NotFound/NotFound";

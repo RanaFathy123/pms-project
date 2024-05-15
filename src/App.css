@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+.background-pass {
+  background-color: #0E382F;
+}
 
 .form-control:-webkit-autofill,
 .form-control:-webkit-autofill,
