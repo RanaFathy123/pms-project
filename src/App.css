@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{--main-color :rgba(239, 155, 40, 1);}
 
 
 .form-control:-webkit-autofill,
@@ -13,7 +14,6 @@
 .form-control:-webkit-autofill,
 :-webkit-autofill:active {
   transition: background-color 5000s;
-  /* -webkit-text-fill-color: white !important; */
   background-color: transparent !important;
   outline: 0 !important;
 }
@@ -40,11 +40,11 @@ form{background: rgba(49, 89, 81, 0.9);
 .text h2 {
   font-size: 32px;
   font-weight: 700;
-  color: rgba(239, 155, 40, 1);
+  color: var(--main-color)
 }
 
 .text h2::first-letter{
-  border-bottom: 2px solid rgba(239, 155, 40, 1);
+  border-bottom: 2px solid var(--main-color);
 }
 
 input[type="text"],
@@ -71,10 +71,10 @@ input[type="password"]::placeholder {
 color: #999 !important; 
 }
 
-label{color: rgba(239, 155, 40, 1);}
+/* label{color: rgba(239, 155, 40, 1);} */
 
 button.submit{
-  background-color: rgba(239, 155, 40, 1) !important;
+  background-color:var(--main-color) !important;
 }
 
 .form-control:focus{box-shadow: none !important;}
@@ -100,6 +100,39 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+
+.fa-search{
+  top: 11px;
+  left: 15px;
+  }
+
+.btn-class{
+  background-color: var(--main-color) !important;
+}
+
+.height{
+  min-height: 100%;
+}
+
+.icons {
+  top: 30px;
+  left: 40px;
+  z-index: 55;
+}
+
+th{background-color: #315951E5 !important;
+color: white !important;}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

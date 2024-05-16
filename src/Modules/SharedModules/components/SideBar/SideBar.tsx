@@ -60,7 +60,7 @@ const toggleCollapsed=()=>{
     <MenuItem icon={<i className="fa-solid fa-right-from-bracket"></i>} onClick={Logout} > LogOut </MenuItem>
 
   </Menu>
-</Sidebar>;
+</Sidebar>
 </div>
   </>
 }

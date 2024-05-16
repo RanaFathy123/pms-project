@@ -16,7 +16,7 @@ export default function AuthContextProvider(props: any) {
     }
   }, []);
   return (
-    <AuthContext.Provider value={{saveLoginData, loginData,baseUrl}}>
+    <AuthContext.Provider value={{saveLoginData, loginData,baseUrl}} >
       {props.children}
     </AuthContext.Provider>
   );
