@@ -37,6 +37,8 @@ export default function Login() {
       toast.success("Login Success", response.data.message);
       saveLoginData();
       navigate("/dashboard");
+      console.log( response.data.token);
+      
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error.response.data.message);
