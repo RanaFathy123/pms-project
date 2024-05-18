@@ -7,28 +7,38 @@ import NoData from "../../../SharedModules/components/NoData/NoData";
 export default function ProjectList() {
   const [ProjectsList, setProjectsList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
- let {baseUrl}= useContext(AuthContext)
+  const [titleValue, setTitleValue] = useState('');
+  const [arrayOfPages, setArrayOfPages] = useState([]);
+
+ let { baseUrl } : any = useContext(AuthContext)
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
 
-  async function getProjectsList() {
+  async function getProjectsList( title: any, pageSize: any, pageNumber: any ) {
     try {
       let response = await axios.get(
-        `${baseUrl}/Project/manager?title=&pageSize=&pageNumber=`,
+        `${baseUrl}/Project/manager/?pageSize=${pageSize}&pageNumber=${pageNumber}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          params: { title: title },
         }
       );
+      setArrayOfPages(Array(response.data.totalNumberOfPages).fill().map((_,i) => i+1) );
       setProjectsList(response.data.data);
-      console.log(response.data.data, "FROM project");
     } catch (error) {}
   }
 
   useEffect(() => {
-    getProjectsList();
+    getProjectsList("", 10, 1);
   }, []);
+
+  const getTitleValue = (input: any) => {
+    setTitleValue(input.target.value);
+    getProjectsList(input.target.value, 10, 1);
+  };
+
   return (
     <>
       <DynamicHeader title={"Projects"} btn={"Project"} />
@@ -42,6 +52,7 @@ export default function ProjectList() {
                   type="search"
                   placeholder="Search..."
                   className="rounded-pill form-control p-2 ps-5"
+                  onChange={getTitleValue}
                 />
               </div>
               <div className="table-responsive-sm table-responsive-md">
@@ -58,8 +69,8 @@ export default function ProjectList() {
                   </thead>
                   <tbody>
                     {ProjectsList?.map((project: any, index) => (
-                      <tr>
-                        <td key={project.id} >
+                      <tr key={project.id} >
+                        <td>
                           {project.id}
                         </td>
                         <td>{project.title}</td>
@@ -93,6 +104,27 @@ export default function ProjectList() {
                     ))}
                   </tbody>
                 </table>
+
+                <nav aria-label="Page navigation example">
+                  <ul className="pagination justify-content-end">
+                    <li className="page-item disabled">
+                      <a className="page-link">Previous</a>
+                    </li>
+
+                    {arrayOfPages.map((pageNo) => 
+                      <li key={pageNo} className="page-item" onClick={() => getProjectsList(titleValue , 10 ,pageNo)}>
+                        <a className="page-link text-secondary">
+                          {pageNo}
+                        </a>
+                      </li>                      
+                    )}
+
+                    <li className="page-item">
+                      <a className="page-link text-secondary">Next</a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { AuthContext } from "../../../../context/AuthContext";
 
-export default function ChangePassword() {
+export default function ChangePassword({ Logout }) {
 
   const {
     register,
@@ -16,8 +16,8 @@ export default function ChangePassword() {
     watch,
   } = useForm<FormDataChangPass>();
 
-  const { baseUrl } = useContext(AuthContext);
-
+  const { baseUrl } : any = useContext(AuthContext);
+  const navigate = useNavigate()
   // Password eye
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -45,8 +45,9 @@ export default function ChangePassword() {
         headers: { Authorization: `Bearer ${ localStorage.getItem("token")}` },
       }
     )
-      // logout();
-      toast.success('Password has been updated successfully');
+      Logout();
+      navigate('/login');
+      toast.success(response.data.message || 'Password has been updated successfully');
     }
     catch(error: any) {
       toast.error(error.response.data.message);

@@ -52,7 +52,7 @@ export default function SideBar() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body className='background-pass'>
-          <ChangePassword />
+          <ChangePassword Logout={Logout}/>
         </Modal.Body>
       </Modal>
  
