@@ -9,8 +9,16 @@
 }
 .fa-chevron-right{
     background-color: rgba(239, 155, 40, 1); 
+    border-top-left-radius: 6px!important;
+    border-bottom-left-radius: 6px !important;
     
 }
 .fa-chevron-left{
-    background-color: rgba(239, 155, 40, 1); 
+    background-color: rgba(239, 155, 40, 1);
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important; 
+}
+
+.container-chevron{
+    top: 15px;
 }
