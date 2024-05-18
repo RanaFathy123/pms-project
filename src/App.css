@@ -58,7 +58,7 @@ background-color: transparent;
 border: 0;
 border-bottom: 1px solid white;
 border-radius: 0;
-color: white !important;
+
 padding: 5px !important;
 padding-left: 0 !important;}
 
@@ -75,7 +75,7 @@ input[type="password"]::placeholder {
 color: #999 !important; 
 }
 
-/* label{color: rgba(239, 155, 40, 1);} */
+
 
 button.submit{
   background-color:var(--main-color) !important;

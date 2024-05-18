@@ -1,16 +1,17 @@
-import logo from "../../../../assets/images/PMS 3.svg";
-import "./Login.css";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FormData } from "../../../../interfaces/Auth.ts";
-import { useContext, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import logo from "../../../../assets/images/PMS 3.svg";
+import { axiosInstance } from "../../../../axiosConfig/axiosInstance.ts";
 import { AuthContext } from "../../../../context/AuthContext.tsx";
+import { FormData } from "../../../../interfaces/Auth.ts";
+import "./Login.css";
+
 
 // Function
 export default function Login() {
-  const { baseUrl, saveLoginData } = useContext(AuthContext);
+  const { saveLoginData }:any = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export default function Login() {
   // Send Data to Api
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(`${baseUrl}/Users/Login`, data);
+      const response = await axiosInstance.post('/Users/Login', data);
       localStorage.setItem("token", response.data.token);
       toast.success("Login Success", response.data.message);
       saveLoginData();
