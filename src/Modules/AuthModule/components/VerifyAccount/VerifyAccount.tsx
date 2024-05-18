@@ -9,14 +9,14 @@ import { AuthContext } from '../../../../context/AuthContext';
 export default function VerifyAccount() {
   let {baseUrl}= useContext(AuthContext)
 
-    const { handleSubmit, register,formState: { errors } } = useForm();
+    const { handleSubmit, register,formState: { errors  ,isDirty ,isValid} } = useForm();
   const Navigate=  useNavigate()
 
     async function onSubmit (data:any) {
         try {
             const res = await axios.put(`${baseUrl}/Users/verify`, data);
             console.log(res);
-            toast.success(res?.data?.message)
+            toast.success(res?.data?.message || 'your account has benn verified')
             Navigate('/login')
         } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ export default function VerifyAccount() {
      <>
         <div className="Auth-container">
             <div className="container-fluid ">
-                <div className="row justify-content-center align-items-center">
+                <div className="row justify-content-center align-items-center min-vh-100">
                     <div className="col-md-6">
                         <div className="image text-center">
                             <img src={img1} alt="" />
@@ -65,7 +65,7 @@ export default function VerifyAccount() {
           </div>
           <div className="button">
           <div className="d-grid gap-2 col-5 mx-auto my-3">
-  <button className="btn text-white rounded-pill submit" type="submit">Save</button>
+  <button className="btn text-white rounded-pill submit" type="submit"  disabled={!isDirty || !isValid}>Save</button>
 </div>
           </div>
          </form>

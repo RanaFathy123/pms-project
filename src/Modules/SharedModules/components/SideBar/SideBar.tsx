@@ -46,9 +46,9 @@ const toggleCollapsed=()=>{
       <div className=' sidebar-container'>
         <Sidebar collapsed={isCollapsed}>
   <Menu >
-        <MenuItem className=' pt-5 text-end' onClick={toggleCollapsed}  >
-          {isCollapsed?<i className="fa-solid fa-chevron-right p-2 rounded rounded-3 "></i>:
-          <i className="fa-solid fa-chevron-left p-2 rounded rounded-3"></i>
+        <MenuItem className=' text-end ' onClick={toggleCollapsed}  >
+          {isCollapsed?<i className="fa-solid fa-chevron-right p-2  fa-s position-absolute end-0 container-chevron"></i>:
+          <i className="fa-solid fa-chevron-left p-2 fa-s position-absolute end-0 container-chevron"></i>
         }
             </MenuItem>
 
