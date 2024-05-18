@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import { AuthContext } from "../../../../context/AuthContext";
 import NoData from "../../../SharedModules/components/NoData/NoData";
+import { Button, Modal } from "react-bootstrap";
+import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData";
 
 export default function TasksList() {
   const [TasksList, setTasksList] = useState([]);
@@ -12,7 +14,36 @@ export default function TasksList() {
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
+    //  Delete Task Module 
+    const [showDelete, setDeleteShow] = useState(false);
+    const handleDeleteClose = () => setDeleteShow(false);
+    const handleDeleteShow = (id: SetStateAction<undefined>) => {
+      setItemId(id)
+      setDeleteShow(true);
+    }
+    const [itemId,setItemId] = useState();
+  
+  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Function Delete Task
+const deleteTask=async()=>{
+  try{
+const response= await axios.delete(`${baseUrl}/Task/${itemId}`,
+  {
+    headers:{ Authorization: `Bearer ${localStorage.getItem("token")}` },
+  }
+)
+console.log(response);
+handleDeleteClose();
+getTasksList();
 
+  }catch(error){
+console.log(error);
+
+  }
+}
+
+// Function Get List
   async function getTasksList() {
     try {
       let response = await axios.get(
@@ -31,6 +62,22 @@ export default function TasksList() {
   }, []);
   return (
     <>
+      {/* Delete Task Module */}
+<Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <h3>Delete Task</h3>
+        </Modal.Header>
+        <Modal.Body>
+  <DeleteData deleteItem={'Task'}/>  
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={deleteTask}>
+          Delete this item         
+            </Button>
+        </Modal.Footer>
+
+      </Modal>
+
       <DynamicHeader title={"Tasks"} btn={"Task"} />
      {TasksList.length ===0 ? <div className="container text-center"><NoData/></div> : <div className="bg-body-tertiary p-3">
         <div className="container ">
@@ -85,7 +132,9 @@ export default function TasksList() {
                             {showIconIndex === index && (
                               <div className="icon-container d-flex flex-column bg-white p-3 rounded-3 shadow-sm">
                                 <i className="fa-regular fa-eye text-success my-1"></i>
-                                <i className="fa-solid fa-trash text-danger my-1"></i>
+                                <i className="fa-solid fa-trash text-danger my-1"
+                                onClick={()=>handleDeleteShow(project.id)} 
+                                ></i>
                                 <i className="fa-solid fa-pen-to-square text-warning my-1"></i>
                               </div>
                             )}

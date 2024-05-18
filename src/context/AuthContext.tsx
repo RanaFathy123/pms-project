@@ -6,6 +6,7 @@ export const AuthContext = createContext(null);
 export default function AuthContextProvider(props: any) {
   const [loginData, setLoginData] = useState(null);
   const baseUrl = "https://upskilling-egypt.com:3003/api/v1";
+
   const saveLoginData = () => {
     let encodedData: any = localStorage.getItem("token");
     let decocodedData: any = jwtDecode(encodedData);

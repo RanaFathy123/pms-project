@@ -1,18 +1,30 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import { AuthContext } from "../../../../context/AuthContext";
 import NoData from "../../../SharedModules/components/NoData/NoData";
+import { Button, Modal } from "react-bootstrap";
+import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData";
+
+
 
 export default function ProjectList() {
   const [ProjectsList, setProjectsList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
  let {baseUrl}= useContext(AuthContext)
-
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
+  //  Delete Project Module 
+  const [showDelete, setDeleteShow] = useState(false);
+  const handleDeleteClose = () => setDeleteShow(false);
+  const handleDeleteShow = (id: SetStateAction<undefined>) => {
+    setItemId(id)
+    setDeleteShow(true);
+  }
+  const [itemId,setItemId] = useState();
 
+  // Get List
   async function getProjectsList() {
     try {
       let response = await axios.get(
@@ -23,15 +35,57 @@ export default function ProjectList() {
       );
       setProjectsList(response.data.data);
       console.log(response.data.data, "FROM project");
-    } catch (error) {}
+    } catch (error:any) {
+      console.log(error.data.data);
+
+    }
   }
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Delete Project Api
+const deleteProject=async()=>{
+  try{
+const response= await axios.delete(`${baseUrl}/Project/${itemId}`,
+  {
+    headers:{ Authorization: `Bearer ${localStorage.getItem("token")}` },
+  }
+)
+console.log(response);
+handleDeleteClose();
+getProjectsList();
+
+  }catch(error){
+console.log(error);
+
+  }
+}
+
 
   useEffect(() => {
     getProjectsList();
   }, []);
   return (
     <>
+
       <DynamicHeader title={"Projects"} btn={"Project"} />
+
+    {/* Delete Project Module */}
+<Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <h3>Delete Project</h3>
+        </Modal.Header>
+        <Modal.Body>
+  <DeleteData deleteItem={'Project'}/>  
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={deleteProject}>
+          Delete this item         
+            </Button>
+        </Modal.Footer>
+
+      </Modal>
+
      {ProjectsList.length === 0 ? <div className="container text-center"><NoData/></div> : <div className="bg-body-tertiary p-3">
         <div className="container ">
           <div className="row d-flex justify-content-center ">
@@ -44,6 +98,7 @@ export default function ProjectList() {
                   className="rounded-pill form-control p-2 ps-5"
                 />
               </div>
+              {/* Table */}
               <div className="table-responsive-sm table-responsive-md">
                 <table className="table table-striped text-center w-100">
                   <thead>
@@ -81,9 +136,13 @@ export default function ProjectList() {
                           ></i>
                           <div className="position-absolute icons ">
                             {showIconIndex === index && (
-                              <div className="icon-container d-flex flex-column bg-white p-3 rounded-3 shadow-sm">
-                                <i className="fa-regular fa-eye text-success my-1"></i>
-                                <i className="fa-solid fa-trash text-danger my-1"></i>
+                              <div className="icon-container d-flex flex-column  bg-white p-3 rounded-3 shadow-sm">
+                                <i className="fa-regular fa-eye text-success my-1 pe-2"></i>
+                                {/* Delete */}
+                                <i
+                                  className="fa-solid fa-trash text-danger my-1 pe-2" 
+                                  onClick={()=>handleDeleteShow(project.id)}
+                                  ></i>
                                 <i className="fa-solid fa-pen-to-square text-warning my-1"></i>
                               </div>
                             )}

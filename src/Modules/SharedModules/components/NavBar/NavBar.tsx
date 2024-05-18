@@ -28,7 +28,7 @@ export default function NavBar() {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link " to="">
-                  <i className="fa-solid fa-bell pt-2 ps-3  text-warning fa-2x"></i>
+                  <i className="fa-solid fa-bell  ps-3  text-warning fa-2x"></i>
                 </Link>
               </li>
               <li className="nav-item">
@@ -40,6 +40,7 @@ export default function NavBar() {
                     alt=""
                   />
                 </div>
+                
                 <div className="d-flex flex-column mx-3">
                   <span>{loginData?.userName}</span>
                   <span className="text-muted">{loginData?.userEmail}</span>
