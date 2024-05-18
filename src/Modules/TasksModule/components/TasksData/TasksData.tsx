@@ -1,21 +1,91 @@
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ProjectContext } from "../../../../context/ProjectContext";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { UsersContext } from "../../../../context/UsersContext";
+import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
+import {
+  descriptionValidation,
+  titleValidation,
+} from "../../../../validations/validation";
+import { toast } from "react-toastify";
 
 export default function TasksData() {
+  const { state } = useLocation();
+  const { Tasks, type } = state || {};
+  console.log(Tasks, type);
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+  const { projectsList } = useContext(ProjectContext);
+  const { usersList } = useContext(UsersContext);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  interface TaskDataType {
+    title?: string;
+    description?: string;
+    employeeId?: number;
+    projectId?: number;
+  }
+  const onSubmit = async (data: TaskDataType) => {
+    try {
+      const response = await axiosInstanceWithHeaders({
+        method: type ? "put" : "post",
+        url: type && Tasks ? `/Task/${Tasks.id}` : "/Task",
+        data,
+      });
+      navigate("/dashboard/tasks");
+      toast.success(
+        type && Tasks ? "Task Updated Successfully" : "Task added Successfully"
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  interface Project {
+    id: number;
+    title: string;
+    description: string;
+    creationDate: string;
+    modificationDate: string;
+    task: [];
+    manager?: {
+      id?: string;
+      userName?: string;
+      imagePath?: string;
+      email?: string;
+      password?: string;
+      country?: string;
+      phoneNumber?: string;
+      verificationCode?: string | null;
+      isVerified?: Boolean;
+      isActivated?: Boolean;
+      creationDate?: string;
+      modificationDate?: string;
+    };
+  }
+  useEffect(() => {
+    if (Tasks && type) {
+      setValue("title", Tasks.title);
+      setValue("description", Tasks.description);
+      setValue("employeeId", Tasks.employee?.id);
+      setValue("projectId", Tasks.project?.id);
+    }
+  }, []);
+
   return (
     <div className="container mt-2">
       <div className="container">
         <i className="fa-solid fa-chevron-left bg-transparent" />
-        <span className="mx-2">View All Tasks</span>
-        <h3 className="mt-2  mx-2">Add a New Task</h3>
+        <Link to="/dashboard/tasks" className="text-decoration-none text-black">
+          <span className="mx-2 ">View All Tasks</span>
+        </Link>
+        <h3 className="mt-2  mx-2">{type ? "Edit Task" : "Add a New Task"}</h3>
       </div>
       <>
         <div>
@@ -31,12 +101,16 @@ export default function TasksData() {
                       Title
                     </label>
                     <input
-                 
                       id="titleId"
                       className="form-control border border-2 px-3 rounded"
                       placeholder="Name"
-                      {...register("title")}
+                      {...register("title", titleValidation)}
                     />
+                    {errors?.title && (
+                      <div className="alert alert-warning p-2 my-3">
+                        {errors?.title?.message?.toString()}
+                      </div>
+                    )}
                     <label
                       htmlFor="descriptionId"
                       className="text-black mb-2 mt-3"
@@ -47,8 +121,13 @@ export default function TasksData() {
                       id="descriptionId"
                       className="form-control border border-2 px-3 py-1 rounded"
                       placeholder="Description"
-                      {...register("description")}
+                      {...register("description", descriptionValidation)}
                     ></textarea>
+                    {errors?.description && (
+                      <div className="alert alert-warning p-2 my-3">
+                        {errors?.description?.message?.toString()}
+                      </div>
+                    )}
                     <div className="row justify-content-between px-3">
                       <div className="col-md-5">
                         <label
@@ -57,12 +136,23 @@ export default function TasksData() {
                         >
                           User
                         </label>
-                        <select className="form-select" id="userId">
-                          <option value="" className="text-muted">
-                            No Users Selected
-                          </option>
+                        <select
+                          className="form-select"
+                          id="userId"
+                          {...register("employeeId")}
+                        >
+                          {usersList.map((user: any) => (
+                            <option value={user.id} key={user.id}>
+                              {user.userName}
+                            </option>
+                          ))}
                         </select>
                       </div>
+                      {errors?.employeeId && (
+                        <div className="alert alert-warning p-2 my-3">
+                          {errors?.employeeId?.message?.toString()}
+                        </div>
+                      )}
                       <div className="col-md-5">
                         <label
                           htmlFor="projectId"
@@ -70,22 +160,25 @@ export default function TasksData() {
                         >
                           Project
                         </label>
-                        <select className="form-select" id="projectId">
-                          <option value="" className="text-muted">
-                            No Status Selected
-                          </option>
+                        <select
+                          className="form-select"
+                          {...register("projectId")}
+                          id="projectId"
+                        >
+                          {projectsList.map((project: Project) => (
+                            <option key={project.id} value={project.id}>
+                              {project.title}
+                            </option>
+                          ))}
                         </select>
                       </div>
-                      
                     </div>
                     <div className="d-flex justify-content-between  mt-3 flex-wrap">
-                        <button className="btn btn-danger rounded ">
-                          Cancel
-                        </button>
-                        <button className="btn btn-warning rounded">
-                          Save
-                        </button>
-                      </div>
+                      <button className="btn btn-danger rounded ">
+                        Cancel
+                      </button>
+                      <button className="btn btn-warning rounded">Save</button>
+                    </div>
                   </form>
                 </div>
               </div>

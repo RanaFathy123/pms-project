@@ -1,24 +1,24 @@
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import img1 from "../../../../assets/images/PMS 3.png";
-import Avatar from "../../../../assets/images/Ellipse 1.png";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Avatar from "../../../../assets/images/Ellipse 1.png";
+import img1 from "../../../../assets/images/PMS 3.png";
 import { AuthContext } from "../../../../context/AuthContext";
-import '../AuthModules.css'
+import "../AuthModules.css";
 
 export default function Register() {
   let { baseUrl } = useContext(AuthContext);
   const {
     handleSubmit,
-    register,  
+    register,
     watch,
-    formState: { errors , isDirty , isValid},
+    formState: { errors, isDirty, isValid },
   } = useForm();
   const Navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState("");
-  const [isPasswordShown,setIsPasswordShown] = useState(false);
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
   const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
     if (field === "password") {
@@ -227,9 +227,10 @@ export default function Register() {
                           },
                         })}
                       />
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={() => togglePasswordVisibility("password")}
-                       className="bg-transparent border-0"
+                        className="bg-transparent border-0"
                       >
                         {isPasswordShown ? (
                           <i className="fa-solid fa-eye-slash position-absolute text-white-50 z-4"></i>
@@ -260,7 +261,8 @@ export default function Register() {
                         })}
                       />
 
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={() =>
                           togglePasswordVisibility("confirmPassword")
                         }
@@ -284,7 +286,7 @@ export default function Register() {
                 <div className="button">
                   <div className="d-grid gap-2 col-5 mx-auto my-3">
                     <button
-                    disabled={!isDirty || !isValid}
+                      disabled={!isDirty || !isValid}
                       className="btn text-white rounded-pill submit"
                       type="submit"
                     >

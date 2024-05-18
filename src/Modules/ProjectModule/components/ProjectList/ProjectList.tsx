@@ -1,39 +1,22 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { ProjectContext } from "../../../../context/ProjectContext";
 import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
-import { AuthContext } from "../../../../context/AuthContext";
 import NoData from "../../../SharedModules/components/NoData/NoData";
 
 export default function ProjectList() {
-  const [ProjectsList, setProjectsList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
+  let { projectsList } = useContext(ProjectContext);
 
-  let { baseUrl }: any = useContext(AuthContext);
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
 
-  async function getProjectsList() {
-    try {
-      let response = await axios.get(
-        `${baseUrl}/Project/manager?title=&pageSize=&pageNumber=`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-
-      setProjectsList(response.data.data);
-    } catch (error) {}
-  }
-
-  useEffect(() => {
-    getProjectsList();
-  }, []);
+  
   return (
     <>
       <DynamicHeader title={"Projects"} btn={"Project"} />
-      {ProjectsList.length === 0 ? (
+      {projectsList.length === 0 ? (
         <div className="container text-center">
           <NoData />
         </div>
@@ -65,7 +48,7 @@ export default function ProjectList() {
                       </tr>
                     </thead>
                     <tbody>
-                      {ProjectsList?.map((project: any, index) => (
+                      {projectsList?.map((project: any, index) => (
                         <tr key={project.id}>
                           <td>{project.id}</td>
                           <td>{project.title}</td>

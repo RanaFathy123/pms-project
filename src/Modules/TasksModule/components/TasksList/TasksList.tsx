@@ -5,14 +5,13 @@ import { AuthContext } from "../../../../context/AuthContext";
 import NoData from "../../../SharedModules/components/NoData/NoData";
 
 import "./TasksList.css";
-
+import { Link } from "react-router-dom";
 
 export default function TasksList() {
   const [TasksList, setTasksList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
 
   let { baseUrl } = useContext(AuthContext);
-
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
@@ -27,7 +26,6 @@ export default function TasksList() {
         }
       );
       setTasksList(response.data.data);
-
     } catch (error) {}
   }
 
@@ -117,12 +115,16 @@ export default function TasksList() {
 
                                   <div className="icon-container d-flex flex-column bg-white p-3 rounded-3 width text-start">
                                     <span className="text-success">
-                                      {" "}
-                                      <i className="fa-regular fa-eye my-1"></i>{" "}
+                                      <i className="fa-regular fa-eye my-1"></i>
                                       View
                                     </span>
                                     <span className="text-success">
-                                      <i className="fa-solid fa-pen-to-square my-2"></i>{" "}
+                                      <Link
+                                        to={`/dashboard/edit-task-data/${Tasks.id}`}
+                                        state={{ Tasks, type: "edit" }}
+                                      >
+                                        <i className="fa-solid fa-pen-to-square my-2"></i>
+                                      </Link>
                                       Edit
                                     </span>
                                     <span className="text-success">
@@ -144,9 +146,7 @@ export default function TasksList() {
             </div>
           </div>
         </div>
-
       )}
-
     </>
   );
 }

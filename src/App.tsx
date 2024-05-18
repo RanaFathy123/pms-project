@@ -1,5 +1,5 @@
 import "./App.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthLayout from "./Modules/SharedModules/components/AuthLayout/AuthLayout";
 import NotFound from "./Modules/SharedModules/components/NotFound/NotFound";
@@ -51,6 +51,8 @@ const App = () => {
         { path: "users", element: <UsersList /> },
         { path: "tasks", element: <TasksList /> },
         { path: "task-data", element: <TasksData /> },
+        { path: "edit-task-data/:id", element: <TasksData /> },
+
         { path: "projects", element: <ProjectList /> },
         { path: "project-data", element: <ProjectData /> },
         { path: "*", element: <NotFound /> },
