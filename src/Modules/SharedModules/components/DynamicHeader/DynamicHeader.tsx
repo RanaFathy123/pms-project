@@ -17,4 +17,5 @@ export default function DynamicHeader({ title, btn }) {
       </div>
     </>
   );
+
 }

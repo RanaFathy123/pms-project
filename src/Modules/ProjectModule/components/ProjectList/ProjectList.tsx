@@ -7,7 +7,9 @@ import NoData from "../../../SharedModules/components/NoData/NoData";
 export default function ProjectList() {
   const [ProjectsList, setProjectsList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
+
   let { baseUrl } = useContext(AuthContext);
+
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
@@ -22,6 +24,7 @@ export default function ProjectList() {
         }
       );
       setProjectsList(response.data.data);
+
     } catch (error) {}
   }
 
@@ -31,6 +34,7 @@ export default function ProjectList() {
   return (
     <>
       <DynamicHeader title={"Projects"} btn={"Project"} />
+
       {ProjectsList.length === 0 ? (
         <div className="container text-center">
           <NoData />
@@ -110,11 +114,14 @@ export default function ProjectList() {
                     </tbody>
                   </table>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
+
       )}
+
     </>
   );
 }

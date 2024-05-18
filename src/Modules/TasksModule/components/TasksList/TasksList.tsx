@@ -3,12 +3,16 @@ import { useContext, useEffect, useState } from "react";
 import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import { AuthContext } from "../../../../context/AuthContext";
 import NoData from "../../../SharedModules/components/NoData/NoData";
+
 import "./TasksList.css";
+
 
 export default function TasksList() {
   const [TasksList, setTasksList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
+
   let { baseUrl } = useContext(AuthContext);
+
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
@@ -23,6 +27,7 @@ export default function TasksList() {
         }
       );
       setTasksList(response.data.data);
+
     } catch (error) {}
   }
 
@@ -135,11 +140,14 @@ export default function TasksList() {
                     </tbody>
                   </table>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
+
       )}
+
     </>
   );
 }

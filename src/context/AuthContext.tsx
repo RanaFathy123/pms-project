@@ -11,6 +11,7 @@ export default function AuthContextProvider(props: any) {
     let decocodedData: any = jwtDecode(encodedData);
     setLoginData(decocodedData);
   };
+  // call saveLogin data
   useEffect(() => {
     if (localStorage.getItem("token")) {
       saveLoginData();

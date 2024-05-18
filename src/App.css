@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{--main-color :rgba(239, 155, 40, 1);}
 
 :root{--main-color :rgba(239, 155, 40, 1);
 --form-color: rgba(49, 89, 81, 0.9);
@@ -23,7 +24,6 @@
 .form-control:-webkit-autofill,
 :-webkit-autofill:active {
   transition: background-color 5000s;
-  /* -webkit-text-fill-color: white !important; */
   background-color: transparent !important;
   outline: 0 !important;
 
@@ -49,6 +49,17 @@ body{
 .icons{z-index: 55;
   top: 2.7rem;
   right: 2em;}
+=======
+.text h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--main-color)
+}
+
+.text h2::first-letter{
+  border-bottom: 2px solid var(--main-color);
+}
+
 
 .triangleUp {
   width: 0;
@@ -62,6 +73,7 @@ body{
 }
 
 
+
 th{background-color: var(--th-color) !important;
 color: var(--white-color) !important;}
 
@@ -69,6 +81,12 @@ color: var(--white-color) !important;}
 @media (min-width: 576px) { 
   .icons{
     right: -0.2em;}
+=======
+/* label{color: rgba(239, 155, 40, 1);} */
+
+button.submit{
+  background-color:var(--main-color) !important;
+
 }
 
 
@@ -82,6 +100,39 @@ color: var(--white-color) !important;}
   .icons{
     right: 2.2em;}
  }
+
+
+
+
+
+
+
+
+
+
+
+.fa-search{
+  top: 11px;
+  left: 15px;
+  }
+
+.btn-class{
+  background-color: var(--main-color) !important;
+}
+
+.height{
+  min-height: 100%;
+}
+
+.icons {
+  top: 30px;
+  left: 40px;
+  z-index: 55;
+}
+
+th{background-color: #315951E5 !important;
+color: white !important;}
+
 
 
 
