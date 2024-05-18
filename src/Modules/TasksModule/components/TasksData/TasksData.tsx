@@ -14,7 +14,7 @@ export default function TasksData() {
     <div className="container mt-2">
       <div className="container">
         <i className="fa-solid fa-chevron-left bg-transparent" />
-        <span className="mx-2">View All Projects</span>
+        <span className="mx-2">View All Tasks</span>
         <h3 className="mt-2  mx-2">Add a New Task</h3>
       </div>
       <>
@@ -31,6 +31,7 @@ export default function TasksData() {
                       Title
                     </label>
                     <input
+                 
                       id="titleId"
                       className="form-control border border-2 px-3 rounded"
                       placeholder="Name"
@@ -48,8 +49,8 @@ export default function TasksData() {
                       placeholder="Description"
                       {...register("description")}
                     ></textarea>
-                    <div className="row">
-                      <div className="col-md-6">
+                    <div className="row justify-content-between px-3">
+                      <div className="col-md-5">
                         <label
                           htmlFor="userId"
                           className="text-black mt-3 mb-2"
@@ -62,7 +63,7 @@ export default function TasksData() {
                           </option>
                         </select>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-5">
                         <label
                           htmlFor="projectId"
                           className="text-black mt-3 mb-2"
@@ -75,7 +76,9 @@ export default function TasksData() {
                           </option>
                         </select>
                       </div>
-                      <div className="d-flex justify-content-between  mt-3 flex-wrap">
+                      
+                    </div>
+                    <div className="d-flex justify-content-between  mt-3 flex-wrap">
                         <button className="btn btn-danger rounded ">
                           Cancel
                         </button>
@@ -83,7 +86,6 @@ export default function TasksData() {
                           Save
                         </button>
                       </div>
-                    </div>
                   </form>
                 </div>
               </div>
