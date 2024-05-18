@@ -53,6 +53,7 @@ const App = () => {
         { path: "task-data", element: <TasksData /> },
         { path: "projects", element: <ProjectList /> },
         { path: "project-data", element: <ProjectData /> },
+        { path: "project-data/:id", element: <ProjectData /> },
         { path: "*", element: <NotFound /> },
       ],
     },

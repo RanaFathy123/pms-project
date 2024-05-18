@@ -1,0 +1,21 @@
+.main-color{
+    color: rgba(14, 56, 47, 1);
+    /* font-family: 'Montserrat'; */
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29.26px;
+    text-align: left;
+
+}
+.inputs-container{
+    background-color: rgba(245, 245, 245, 1);
+}
+.save-btn{
+    background-color: rgba(239, 155, 40, 1) !important;
+}
+.cancel-btn{
+    border: 1px solid rgba(14, 56, 47, 1) !important;
+    color: rgba(14, 56, 47, 1) !important;
+}
+
+
