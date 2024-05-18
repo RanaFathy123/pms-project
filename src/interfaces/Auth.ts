@@ -29,4 +29,8 @@ export interface FormData {
     newPassword: string;
     confirmNewPassword: string;
   }
-
+ export interface AuthContextType {
+    baseUrl?: string;
+    loginData?: {} | null;
+    saveLoginData?: () => void;
+  }
