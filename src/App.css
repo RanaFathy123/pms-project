@@ -3,11 +3,30 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 :root{--main-color :rgba(239, 155, 40, 1);
 --form-color: rgba(49, 89, 81, 0.9);
 --white-color: white;
 --th-color: #315951E5;
 --h2-Dynamic:#4F4F4F;
+
+
+.background-pass {
+  background-color: #0E382F;
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill,
+:-webkit-autofill:hover,
+.form-control:-webkit-autofill,
+:-webkit-autofill:focus,
+.form-control:-webkit-autofill,
+:-webkit-autofill:active {
+  transition: background-color 5000s;
+  /* -webkit-text-fill-color: white !important; */
+  background-color: transparent !important;
+  outline: 0 !important;
+
 }
 
 
@@ -63,6 +82,7 @@ color: var(--white-color) !important;}
   .icons{
     right: 2.2em;}
  }
+
 
 
 
