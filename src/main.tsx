@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,15 +10,13 @@ import UsersContextProvider from "./context/UsersContext.tsx";
 import AllUsersContextProvider from "./context/AllUsersContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <AuthContextProvider>
-      <ProjectContextProvider>
-        <UsersContextProvider>
-          <AllUsersContextProvider>
-            <App />
-          </AllUsersContextProvider>
-        </UsersContextProvider>
-      </ProjectContextProvider>
-    </AuthContextProvider>
-  </React.StrictMode>
+  <AuthContextProvider>
+    <ProjectContextProvider>
+      <UsersContextProvider>
+        <AllUsersContextProvider>
+          <App />
+        </AllUsersContextProvider>
+      </UsersContextProvider>
+    </ProjectContextProvider>
+  </AuthContextProvider>
 );

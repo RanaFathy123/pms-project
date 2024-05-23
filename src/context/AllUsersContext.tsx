@@ -1,7 +1,14 @@
-import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import { axiosInstanceWithHeaders } from "../axiosConfig/axiosInstance";
 import { AllUsersContextType } from "../interfaces/AllUsersContext";
+import { AuthContext } from "./AuthContext";
 
 export let AllUsersContext = createContext<AllUsersContextType>({
   allUsersList: [],
@@ -9,21 +16,24 @@ export let AllUsersContext = createContext<AllUsersContextType>({
 
 function AllUsersContextProvider(props: PropsWithChildren) {
   const [allUsersList, setAllUsersList] = useState([]);
+  const { loginData } = useContext(AuthContext);
   async function getUsersList() {
     try {
       let response = await axiosInstanceWithHeaders.get("/Users");
-      setAllUsersList(response.data.data);
-    } catch (error) {}
+      let allUsers = response.data.data;
+      setAllUsersList(allUsers);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     getUsersList();
-  }, []);
+  }, [loginData]);
   return (
     <AllUsersContext.Provider value={{ allUsersList }}>
       {props.children}
     </AllUsersContext.Provider>
   );
 }
-export default AllUsersContextProvider
-
+export default AllUsersContextProvider;

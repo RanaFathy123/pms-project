@@ -1,21 +1,60 @@
-import { useContext, useState } from "react";
+import { SetStateAction, useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { ProjectContext } from "../../../../context/ProjectContext";
 import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import NoData from "../../../SharedModules/components/NoData/NoData";
 
+import { Button, Modal } from "react-bootstrap";
+import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
+import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData";
+
 export default function ProjectList() {
   const [showIconIndex, setShowIconIndex] = useState(null);
-  let { projectsList } = useContext(ProjectContext);
+  let { projectsList, projectDeleted } = useContext(ProjectContext);
+  const [showDelete, setDeleteShow] = useState(false);
+  const handleDeleteClose = () => setDeleteShow(false);
+  const handleDeleteShow = (id: SetStateAction<undefined>) => {
+    setItemId(id);
+    setDeleteShow(true);
+  };
+  const [itemId, setItemId] = useState();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Delete Project Api
+  const deleteProject = async () => {
+    try {
+      const response = await axiosInstanceWithHeaders.delete(
+        `/Project/${itemId}`
+      );
+      projectDeleted();
+      console.log(response);
+      handleDeleteClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
 
-  
   return (
     <>
       <DynamicHeader title={"Projects"} btn={"Project"} />
+      {/* Delete Project Module */}
+      <Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <h3>Delete Project</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <DeleteData deleteItem={"Project"} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={deleteProject}>
+            Delete this item
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {projectsList.length === 0 ? (
         <div className="container text-center">
           <NoData />
@@ -77,13 +116,27 @@ export default function ProjectList() {
                                       View
                                     </span>
                                     <span className="text-success">
-                                      <i className="fa-solid fa-pen-to-square my-2"></i>{" "}
-                                      Edit
+                                      <Link
+                                        to={`/dashboard/project-data/${project.id}`}
+                                        className="text-decoration-none"
+                                        state={{
+                                          updateData: project,
+                                          type: "update",
+                                        }}
+                                      >
+                                        <i className="fa-solid fa-pen-to-square text-warning my-1"></i>{" "}
+                                        Edit
+                                      </Link>{" "}
                                     </span>
                                     <span className="text-success">
-                                      {" "}
-                                      <i className="fa-solid fa-trash my-1"></i>{" "}
-                                      Delete
+                                      <div
+                                        onClick={() =>
+                                          handleDeleteShow(project.id)
+                                        }
+                                      >
+                                        <i className="fa-solid fa-trash my-1"></i>{" "}
+                                        Delete
+                                      </div>
                                     </span>
                                   </div>
                                 </>

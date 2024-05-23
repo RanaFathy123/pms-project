@@ -12,9 +12,12 @@ import {
   passwordValidation,
 } from "../../../../validations/validation.ts";
 
+
+
 // Function
 export default function Login() {
-  const { saveLoginData }: any = useContext(AuthContext);
+  const { saveLoginData } = useContext(AuthContext);
+
 
   const navigate = useNavigate();
 

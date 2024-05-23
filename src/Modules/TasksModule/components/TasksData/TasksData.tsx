@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,8 +9,11 @@ import {
   descriptionValidation,
   titleValidation,
 } from "../../../../validations/validation";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export default function TasksData() {
+  const [projectId,setProjectId]=useState('')
+  const[userId,setUserId]=useState('')
   const { state } = useLocation();
   const { Tasks, type } = state || {};
   console.log(Tasks, type);
@@ -24,7 +27,7 @@ export default function TasksData() {
   } = useForm();
   const { projectsList } = useContext(ProjectContext);
   const { usersList } = useContext(UsersContext);
-
+  const { loginData } = useContext(AuthContext);
   interface TaskDataType {
     title?: string;
     description?: string;
@@ -73,10 +76,10 @@ export default function TasksData() {
     if (Tasks && type) {
       setValue("title", Tasks.title);
       setValue("description", Tasks.description);
-      setValue("employeeId", Tasks.employee?.id);
-      setValue("projectId", Tasks.project?.id);
+      setProjectId(Tasks.project?.id)
+      setUserId(Tasks.employee?.id)
     }
-  }, []);
+  }, [loginData]);
 
   return (
     <div className="container mt-2">
@@ -137,9 +140,15 @@ export default function TasksData() {
                           User
                         </label>
                         <select
+                          value={userId}
+
                           className="form-select"
                           id="userId"
-                          {...register("employeeId")}
+                          {...register("employeeId", {
+                            onChange: (e:any) => {
+                              setUserId(e.target.value)
+                            },
+                          })}
                         >
                           {usersList.map((user: any) => (
                             <option value={user.id} key={user.id}>
@@ -161,8 +170,13 @@ export default function TasksData() {
                           Project
                         </label>
                         <select
+                          value={projectId}
                           className="form-select"
-                          {...register("projectId")}
+                          {...register("projectId", {
+                            onChange: (e:any) => {
+                             setProjectId(e.target.value)
+                            },
+                          })}
                           id="projectId"
                         >
                           {projectsList.map((project: Project) => (

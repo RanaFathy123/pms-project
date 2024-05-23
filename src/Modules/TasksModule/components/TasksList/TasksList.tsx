@@ -11,7 +11,7 @@ export default function TasksList() {
   const [TasksList, setTasksList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
 
-  let { baseUrl } = useContext(AuthContext);
+  let { baseUrl, loginData } = useContext(AuthContext);
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
@@ -20,18 +20,19 @@ export default function TasksList() {
   async function getTasksList() {
     try {
       let response = await axios.get(
-        `${baseUrl}/Task/manager?title=&pageSize=&pageNumber=`,
+        `${baseUrl}/Task/manager?title=&pageSize=15&pageNumber=`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      setTasksList(response.data.data);
+      const tasks = response.data.data
+      setTasksList(tasks);
     } catch (error) {}
   }
 
   useEffect(() => {
     getTasksList();
-  }, []);
+  }, [loginData]);
   return (
     <>
       <DynamicHeader title={"Tasks"} btn={"Task"} />

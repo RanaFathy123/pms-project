@@ -20,12 +20,19 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./Modules/SharedModules/components/ProtectedRoute/ProtectedRoute";
+import TasksBoard from "./Modules/TasksModule/components/TasksBoard/TasksBoard";
+import PrivateRoute from "./Modules/SharedModules/components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: <AuthLayout />,
+
+      element: (
+        <PrivateRoute>
+          <AuthLayout />
+        </PrivateRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Login /> },
@@ -52,9 +59,11 @@ const App = () => {
         { path: "tasks", element: <TasksList /> },
         { path: "task-data", element: <TasksData /> },
         { path: "edit-task-data/:id", element: <TasksData /> },
+        { path: "tasks-board", element: <TasksBoard /> },
 
         { path: "projects", element: <ProjectList /> },
         { path: "project-data", element: <ProjectData /> },
+        { path: "project-data/:id", element: <ProjectData /> },
         { path: "*", element: <NotFound /> },
       ],
     },

@@ -51,7 +51,7 @@ body {
   top: 2.7rem;
   right: 2em;
 }
-.text h2::first-letter{
+.text h2::first-letter {
   border-bottom: 2px solid var(--main-color);
 }
 .text h2 {
@@ -69,8 +69,10 @@ body {
   top: -13px;
   right: 1.8em;
 }
-th{background-color: var(--th-color) !important;
-  color: var(--white-color) !important;}
+th {
+  background-color: var(--th-color) !important;
+  color: var(--white-color) !important;
+}
 
 .Auth-container {
   background-image: url(../src/assets/images/bg1.png);
@@ -180,4 +182,60 @@ input:-webkit-autofill:focus {
 th {
   background-color: #315951e5 !important;
   color: white !important;
+}
+.grabbable {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.grabbable:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.task-bg {
+  background: #ef9b28;
+  border: #4f4f4f;
+  border-radius: 8px;
+}
+/* DashBoard */
+.DashBoardSpan {
+  color: var(--main-color);
+  font-family: Montserrat;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 43.88px;
+}
+.DashBoard {
+  font-family: Montserrat;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 43.88px;
+}
+/* imgDashBoard */
+.bgHeaderh {
+  background-image: url(./assets/images/bg-header.jpg);
+  border-radius: 2rem;
+  background-size: cover;
+  width: 100%;
+  color: white;
+  height: 330px;
+}
+.head{
+  border-left: #EF9B28 solid 5px ;
+  padding-left: 1em;
+
+}
+.task-icon-bg{
+  background: #E4E4BC;
+  border-radius: 15px;
+
+}
+.project-icon-bg{
+  background: #E7C3D7;
+  border-radius: 15px;
+
 }
