@@ -11,21 +11,13 @@ import { AuthContext } from "./AuthContext";
 
 export const ProjectContext = createContext<ProjectContextType>({
   projectsList: [],
-  projectDeleted:()=>{}
- 
+
+  getProjectsList: () => {},
 });
 
 function ProjectContextProvider(props: PropsWithChildren) {
   const [projectsList, setProjectsList] = useState([]);
-  const[isProjectDeleted,setIsProjectDeleted]=useState(false)
-
-  const projectDeleted =()=>{
-    setIsProjectDeleted(!isProjectDeleted)
-  }
-
   const { loginData } = useContext(AuthContext);
-
-  
 
   async function getProjectsList() {
     try {
@@ -39,10 +31,10 @@ function ProjectContextProvider(props: PropsWithChildren) {
 
   useEffect(() => {
     getProjectsList();
-  }, [loginData,isProjectDeleted]);
+  }, [loginData]);
 
   return (
-    <ProjectContext.Provider value={{ projectsList,projectDeleted }}>
+    <ProjectContext.Provider value={{ projectsList, getProjectsList }}>
       {props.children}
     </ProjectContext.Provider>
   );

@@ -10,7 +10,7 @@ import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData"
 
 export default function ProjectList() {
   const [showIconIndex, setShowIconIndex] = useState(null);
-  let { projectsList, projectDeleted } = useContext(ProjectContext);
+  let { projectsList, getProjectsList } = useContext(ProjectContext);
   const [showDelete, setDeleteShow] = useState(false);
   const handleDeleteClose = () => setDeleteShow(false);
   const handleDeleteShow = (id: SetStateAction<undefined>) => {
@@ -26,7 +26,7 @@ export default function ProjectList() {
       const response = await axiosInstanceWithHeaders.delete(
         `/Project/${itemId}`
       );
-      projectDeleted();
+      getProjectsList();
       console.log(response);
       handleDeleteClose();
     } catch (error) {

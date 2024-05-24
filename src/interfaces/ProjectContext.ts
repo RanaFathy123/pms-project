@@ -10,5 +10,5 @@ export interface Project {
 
 export interface ProjectContextType {
   projectsList: Project[];
-  projectDeleted: () => void;
+  getProjectsList:()=>void
 }

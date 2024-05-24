@@ -224,18 +224,15 @@ th {
   color: white;
   height: 330px;
 }
-.head{
-  border-left: #EF9B28 solid 5px ;
+.head {
+  border-left: #ef9b28 solid 5px;
   padding-left: 1em;
-
 }
-.task-icon-bg{
-  background: #E4E4BC;
+.task-icon-bg {
+  background: #e4e4bc;
   border-radius: 15px;
-
 }
-.project-icon-bg{
-  background: #E7C3D7;
+.project-icon-bg {
+  background: #e7c3d7;
   border-radius: 15px;
-
 }

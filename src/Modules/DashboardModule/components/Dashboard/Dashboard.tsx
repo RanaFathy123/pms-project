@@ -46,18 +46,18 @@ export default function Dashboard() {
       console.log(error);
     }
   };
-  const data1 = {
+  const taskdata = {
     datasets: [
       {
         data: tasksData,
+        
         backgroundColor: ["#264b43", "rgb(188, 98, 15)", "rgb(99, 61, 22)"],
         hoverOffset: 4,
       },
     ],
-
     labels: ["To Do", "In Progress", "Done"], // Add labels for each data segment
   };
-  const data2 = {
+  const userdata = {
     datasets: [
       {
         data: usersData,
@@ -99,7 +99,7 @@ export default function Dashboard() {
                 <p className="text-muted">Lorem ipsum dolor sit amet.</p>
               </div>
               <div className="d-flex flex-wrap ">
-                <div className="card mx-5 " style={{ width: "13rem" }}>
+                <div className="card mx-5" style={{ width: "13rem" }}>
                   <div className="card-body py-4">
                     <span className="task-icon-bg p-3">
                       <i className="fas fa-tasks fw-bold fa-xl "></i>
@@ -110,7 +110,7 @@ export default function Dashboard() {
                 </div>
                 <div className="card " style={{ width: "13rem" }}>
                   <div className="card-body py-4">
-                    <span className="project-icon-bg p-3  ">
+                    <span className="project-icon-bg p-3">
                       <i className="fas fa-project-diagram fw-bold fa-xl"></i>
                     </span>
                     <h5 className="card-title mt-4">Projects Number</h5>
@@ -152,10 +152,10 @@ export default function Dashboard() {
       </div>
       <div className="d-flex justify-content-around flex-wrap  ">
         <div className=" mx-4 mt-5">
-          <Doughnut data={data1} />
+          <Doughnut data={taskdata} />
         </div>
         <div className=" mx-4 mt-5">
-          <Doughnut data={data2} />
+          <Doughnut data={userdata} />
         </div>
       </div>
     </>
