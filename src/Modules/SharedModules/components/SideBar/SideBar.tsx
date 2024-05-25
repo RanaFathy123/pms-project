@@ -23,7 +23,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
+// import Modal from 'react-bootstrap/Modal';
 // import toggler from '../../../../assets/img/3.png';
 import './SideBar.css'
 import ChangePassword from '../../../AuthModule/components/ChangePassword/ChangePassword';
@@ -50,11 +50,11 @@ export default function SideBar() {
    
   return <>
 
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Body className='background-pass'>
           <ChangePassword />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
  
       <div className=' sidebar-container'>
         <Sidebar collapsed={isCollapsed}>

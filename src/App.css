@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+
 :root {
   --main-color: rgba(239, 155, 40, 1);
 }
@@ -13,6 +15,10 @@
   --white-color: white;
   --th-color: #315951e5;
   --h2-Dynamic: #4f4f4f;
+}
+
+.color{
+  color: var(--main-color) !important;
 }
 
 .background-pass {
@@ -51,6 +57,7 @@ body {
   top: 2.7rem;
   right: 2em;
 }
+
 .text h2::first-letter {
   border-bottom: 2px solid var(--main-color);
 }
@@ -69,10 +76,8 @@ body {
   top: -13px;
   right: 1.8em;
 }
-th {
-  background-color: var(--th-color) !important;
-  color: var(--white-color) !important;
-}
+th{background-color: var(--th-color) !important;
+  color: var(--white-color) !important;}
 
 .Auth-container {
   background-image: url(../src/assets/images/bg1.png);
@@ -183,6 +188,12 @@ th {
   background-color: #315951e5 !important;
   color: white !important;
 }
+
+.search{
+  top: 12px;
+  left:30px
+}
+
 .grabbable {
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: grab;

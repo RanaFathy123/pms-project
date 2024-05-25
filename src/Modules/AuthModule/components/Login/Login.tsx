@@ -47,8 +47,7 @@ export default function Login() {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error.response.data.message);
-      toast.error(error.response.data.message || "Login Fail");
+      toast.error(error.response?.data?.message || "Login Fail");
     }
   };
 

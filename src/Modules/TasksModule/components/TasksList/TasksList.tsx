@@ -46,7 +46,7 @@ export default function TasksList() {
             <div className="row bg-white rounded-4 p-0 shadow-sm ">
               <div className="col-md-4 col-lg-3 ">
                 <div className="search-container position-relative my-3 px-3">
-                  <i className="fa fa-search position-absolute "></i>
+                  <i className="fa fa-search position-absolute search"></i>
                   <input
                     type="search"
                     placeholder="Search by title.."
