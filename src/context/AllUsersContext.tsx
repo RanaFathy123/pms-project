@@ -18,7 +18,7 @@ export let AllUsersContext = createContext<AllUsersContextType>({
   GetUserValue: () => {},
 });
 function AllUsersContextProvider(props: PropsWithChildren) {
-  // const {loginData} = useContext(AuthContext)
+  const {loginData} = useContext(AuthContext)
 
   const [allUsersList, setAllUsersList] = useState([]);
   const [isToggle, setIsToggle] = useState(false);
@@ -62,7 +62,7 @@ function AllUsersContextProvider(props: PropsWithChildren) {
   };
   useEffect(() => {
     getUsersList("", "", 5, 1);
-  }, [isToggle]);
+  }, [loginData]);
 
   const value = {
     allUsersList,

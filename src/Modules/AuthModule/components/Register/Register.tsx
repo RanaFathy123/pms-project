@@ -1,56 +1,70 @@
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import img1 from "../../../../assets/images/PMS 3.png";
-import Avatar from "../../../../assets/images/Ellipse 1.png";
 import axios from "axios";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Avatar from "../../../../assets/images/Ellipse 1.png";
+import img1 from "../../../../assets/images/PMS 3.png";
 import { AuthContext } from "../../../../context/AuthContext";
+import "../AuthModules.css";
 
 export default function Register() {
- let {baseUrl}= useContext(AuthContext)
+  let { baseUrl } = useContext(AuthContext);
   const {
     handleSubmit,
     register,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm();
   const Navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const togglePasswordVisibility = (field: any) => {
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
+  const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
     if (field === "password") {
-      setShowPassword(!showPassword);
+      setIsPasswordShown(!isPasswordShown);
     } else if (field === "confirmPassword") {
-      setShowConfirmPassword(!showConfirmPassword);
+      setIsConfirmPasswordShown(!isConfirmPasswordShown);
     }
   };
 
-  function AppendToFormData(data: any) {
+  // function AppendToFormData(data: any) {
+  //   const formData = new FormData();
+  //   formData.append("userName", data.userName);
+  //   formData.append("profileImage", data.profileImage[0]);
+  //   formData.append("email", data.email);
+  //   formData.append("phoneNumber", data.phoneNumber);
+  //   formData.append("country", data.country);
+  //   formData.append("password", data.password);
+  //   formData.append("confirmPassword", data.confirmPassword);
+  //   return formData;
+  // }
+
+  const appendToFormData = (data: any) => {
     const formData = new FormData();
-    formData.append("userName", data.userName);
-    formData.append("profileImage", data.profileImage[0]);
-    formData.append("email", data.email);
-    formData.append("phoneNumber", data.phoneNumber);
-    formData.append("country", data.country);
-    formData.append("password", data.password);
-    formData.append("confirmPassword", data.confirmPassword);
+    Object.keys(data).forEach((key) => {
+      if (data[key] !== null && data[key] !== undefined) {
+        formData.append(key, data[key]);
+      }
+    });
     return formData;
-  }
+  };
 
   function changingImage(event: any) {
     setSelectedImage(URL.createObjectURL(event.target.files[0]));
   }
 
   async function onSubmit(data: any) {
-    let SubmitData = AppendToFormData(data);
+    let SubmitData = appendToFormData(data);
     try {
       const res: any = await axios.post(
         `${baseUrl}/Users/Register`,
         SubmitData
       );
-      toast.success(res?.data?.message);
+      toast.success(
+        res?.data?.message ||
+          "Account created successfully. A verification code has been sent to your email address."
+      );
       Navigate("/verify-account");
     } catch (error: any) {
       toast.error(error?.res?.data?.message || "There's an error");
@@ -61,7 +75,7 @@ export default function Register() {
     <>
       <div className="Auth-container">
         <div className="container-fluid ">
-          <div className="row justify-content-center align-items-center">
+          <div className="row justify-content-center align-items-center min-vh-100">
             <div className="w-75">
               <div className="image text-center">
                 <img src={img1} alt="" />
@@ -200,7 +214,7 @@ export default function Register() {
                     <div className="input m-3 position-relative z-0">
                       <label className="my-1">Password</label>
                       <input
-                        type={showPassword ? "text" : "password"}
+                        type={isPasswordShown ? "text" : "password"}
                         className="form-control p-0 "
                         placeholder="Enter Your Password"
                         {...register("password", {
@@ -213,16 +227,17 @@ export default function Register() {
                           },
                         })}
                       />
-                      <a
+                      <button
+                        type="button"
                         onClick={() => togglePasswordVisibility("password")}
-                        className="toggle-password"
+                        className="bg-transparent border-0"
                       >
-                        {showPassword ? (
+                        {isPasswordShown ? (
                           <i className="fa-solid fa-eye-slash position-absolute text-white-50 z-4"></i>
                         ) : (
                           <i className="fa-regular fa-eye position-absolute text-white-50 z-4"></i>
                         )}
-                      </a>
+                      </button>
                       {errors?.password && (
                         <div className="alert alert-danger p-2 my-3">
                           {errors?.password?.message?.toString()}
@@ -235,7 +250,7 @@ export default function Register() {
                     <div className="input m-3 position-relative z-0">
                       <label className="my-1">Confirm Password</label>
                       <input
-                        type={showConfirmPassword ? "text" : "password"}
+                        type={isConfirmPasswordShown ? "text" : "password"}
                         className="form-control p-0 "
                         placeholder="Enter Your Confirm Password"
                         {...register("confirmPassword", {
@@ -246,18 +261,19 @@ export default function Register() {
                         })}
                       />
 
-                      <a
+                      <button
+                        type="button"
                         onClick={() =>
                           togglePasswordVisibility("confirmPassword")
                         }
-                        className="toggle-password"
+                        className="toggle-password bg-transparent border-0"
                       >
-                        {showConfirmPassword ? (
+                        {isConfirmPasswordShown ? (
                           <i className="fa-solid fa-eye-slash position-absolute text-white-50 z-4"></i>
                         ) : (
                           <i className="fa-regular fa-eye position-absolute text-white-50 z-4"></i>
                         )}
-                      </a>
+                      </button>
 
                       {errors?.confirmPassword && (
                         <div className="alert alert-danger p-2 my-3 ">
@@ -270,6 +286,7 @@ export default function Register() {
                 <div className="button">
                   <div className="d-grid gap-2 col-5 mx-auto my-3">
                     <button
+                      disabled={!isDirty || !isValid}
                       className="btn text-white rounded-pill submit"
                       type="submit"
                     >

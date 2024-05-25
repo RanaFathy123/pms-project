@@ -20,12 +20,13 @@ export default function TasksList() {
   async function getTasksList() {
     try {
       let response = await axios.get(
-        `${baseUrl}/Task/manager?title=&pageSize=&pageNumber=`,
+        `${baseUrl}/Task/manager?title=&pageSize=15&pageNumber=`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      setTasksList(response.data.data);
+      const tasks = response.data.data
+      setTasksList(tasks);
     } catch (error) {}
   }
 

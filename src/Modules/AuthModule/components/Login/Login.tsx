@@ -1,16 +1,23 @@
-import logo from "../../../../assets/images/PMS 3.svg";
-import "./Login.css";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FormData } from "../../../../interfaces/Auth.ts";
-import { useContext, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import logo from "../../../../assets/images/PMS 3.svg";
+import { axiosInstance } from "../../../../axiosConfig/axiosInstance.ts";
 import { AuthContext } from "../../../../context/AuthContext.tsx";
+import { FormData } from "../../../../interfaces/Auth.ts";
+import "./Login.css";
+import {
+  emailValidation,
+  passwordValidation,
+} from "../../../../validations/validation.ts";
+
+
 
 // Function
 export default function Login() {
-  const { baseUrl, saveLoginData } = useContext(AuthContext);
+  const { saveLoginData } = useContext(AuthContext);
+
 
   const navigate = useNavigate();
 
@@ -32,11 +39,12 @@ export default function Login() {
   // Send Data to Api
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(`${baseUrl}/Users/Login`, data);
+      const response = await axiosInstance.post("/Users/Login", data);
       localStorage.setItem("token", response.data.token);
       toast.success("Login Success", response.data.message);
       saveLoginData();
       navigate("/dashboard");
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Login Fail");
@@ -71,14 +79,7 @@ export default function Login() {
                         Email
                       </label>
                       <input
-                        {...register("email", {
-                          required: "email is required",
-                          pattern: {
-                            value:
-                              /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                            message: "email is not valid ",
-                          },
-                        })}
+                        {...register("email", emailValidation)}
                         placeholder="email"
                         id="exampleFormControlInput1"
                         type="email"
@@ -115,15 +116,7 @@ export default function Login() {
                           color: showPassword ? "white" : "",
                         }}
                         placeholder="password"
-                        {...register("password", {
-                          required: "password is required ",
-                          pattern: {
-                            value:
-                              /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-                            message:
-                              "Password must contain at least 8 characters, including upper and lowercase letters, and numbers",
-                          },
-                        })}
+                        {...register("password", passwordValidation)}
                       />
                       {/* button eye password */}
                       <button
