@@ -10,14 +10,16 @@ import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData"
 
 export default function ProjectList() {
   const [showIconIndex, setShowIconIndex] = useState(null);
-  let { projectsList, getProjectsList } = useContext(ProjectContext);
   const [showDelete, setDeleteShow] = useState(false);
+  const [itemId, setItemId] = useState(0);
+  let { projectsList, getProjectsList } = useContext(ProjectContext);
+
+
   const handleDeleteClose = () => setDeleteShow(false);
-  const handleDeleteShow = (id: SetStateAction<undefined>) => {
+  const handleDeleteShow = (id: number) => {
     setItemId(id);
     setDeleteShow(true);
   };
-  const [itemId, setItemId] = useState();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // Delete Project Api

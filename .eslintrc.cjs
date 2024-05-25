@@ -2,6 +2,9 @@ module.exports = {
   root: true,
   rules: {
     "no-unused-vars": "warn",
+    "react/react-in-jsx-scope": 0,
+    "react/tsx-uses-react": "off",
+    "react/react-in-tsx-scope": "off",
   },
   env: { browser: true, es2020: true },
   extends: [

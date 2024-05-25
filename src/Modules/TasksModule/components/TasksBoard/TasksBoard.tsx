@@ -15,7 +15,7 @@ export default function TasksBoard() {
     prevStatus: string,
     newStatus: Status
   ) => void;
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [isTaskChanged, setIsTaskChanged] = useState(false);
   const getAllTasks = async () => {
     const response = await axiosInstance.get("/Task", {
@@ -37,7 +37,7 @@ export default function TasksBoard() {
     newStatus
   ) => {
     try {
-      const newTasks: any = tasks.map((task: any) => {
+      const newTasks = tasks.map((task: Task) => {
         if (task.id == id) return { ...task, status: newStatus };
         return task;
       });
