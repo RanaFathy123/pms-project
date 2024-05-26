@@ -50,7 +50,7 @@ export default function Dashboard() {
     datasets: [
       {
         data: tasksData,
-        
+
         backgroundColor: ["#264b43", "rgb(188, 98, 15)", "rgb(99, 61, 22)"],
         hoverOffset: 4,
       },
@@ -68,6 +68,7 @@ export default function Dashboard() {
 
     labels: ["Active", "In Active"], // Add labels for each data segment
   };
+
   useEffect(() => {
     getTasksNumbers();
     getUsersNumbers();
@@ -90,74 +91,82 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div>
-              <div className="head mt-5 mx-3">
-                <h5>Tasks</h5>
-                <p className="text-muted">Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div className="d-flex flex-wrap ">
-                <div className="card mx-5" style={{ width: "13rem" }}>
-                  <div className="card-body py-4">
-                    <span className="task-icon-bg p-3">
-                      <i className="fas fa-tasks fw-bold fa-xl "></i>
-                    </span>
-                    <h5 className="card-title mt-4">Tasks Number</h5>
-                    <h2>{tasksNumbers}</h2>
+      {loginData?.userGroup == "Manager" ? (
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <div>
+                <div className="head mt-5 mx-3">
+                  <h5>Tasks</h5>
+                  <p className="text-muted">Lorem ipsum dolor sit amet.</p>
+                </div>
+                <div className="d-flex flex-wrap ">
+                  <div className="card mx-5" style={{ width: "13rem" }}>
+                    <div className="card-body py-4">
+                      <span className="task-icon-bg p-3">
+                        <i className="fas fa-tasks fw-bold fa-xl "></i>
+                      </span>
+                      <h5 className="card-title mt-4">Tasks Number</h5>
+                      <h2>{tasksNumbers}</h2>
+                    </div>
+                  </div>
+                  <div className="card " style={{ width: "13rem" }}>
+                    <div className="card-body py-4">
+                      <span className="project-icon-bg p-3">
+                        <i className="fas fa-project-diagram fw-bold fa-xl"></i>
+                      </span>
+                      <h5 className="card-title mt-4">Projects Number</h5>
+                      <h2>50</h2>
+                    </div>
                   </div>
                 </div>
-                <div className="card " style={{ width: "13rem" }}>
-                  <div className="card-body py-4">
-                    <span className="project-icon-bg p-3">
-                      <i className="fas fa-project-diagram fw-bold fa-xl"></i>
-                    </span>
-                    <h5 className="card-title mt-4">Projects Number</h5>
-                    <h2>50</h2>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div>
+                <div className="head mt-5 mx-3">
+                  <h5>Users</h5>
+                  <p className="text-muted">Lorem ipsum dolor sit amet.</p>
+                </div>
+                <div className="d-flex flex-wrap ">
+                  <div className="card mx-5 " style={{ width: "13rem" }}>
+                    <div className="card-body py-4">
+                      <span className="task-icon-bg p-3">
+                        <i className="fas fa-tasks fw-bold fa-xl "></i>
+                      </span>
+                      <h5 className="card-title mt-4">active</h5>
+                      <h2>{usersCount.activeUsersCount}</h2>
+                    </div>
+                  </div>
+                  <div className="card" style={{ width: "13rem" }}>
+                    <div className="card-body py-4">
+                      <span className="project-icon-bg p-3  ">
+                        <i className="fas fa-project-diagram fw-bold fa-xl"></i>
+                      </span>
+                      <h5 className="card-title mt-4">inactive</h5>
+                      <h2>{usersCount.inActiveUsersCount}</h2>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-md-6">
-            <div>
-              <div className="head mt-5 mx-3">
-                <h5>Users</h5>
-                <p className="text-muted">Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div className="d-flex flex-wrap ">
-                <div className="card mx-5 " style={{ width: "13rem" }}>
-                  <div className="card-body py-4">
-                    <span className="task-icon-bg p-3">
-                      <i className="fas fa-tasks fw-bold fa-xl "></i>
-                    </span>
-                    <h5 className="card-title mt-4">active</h5>
-                    <h2>{usersCount.activeUsersCount}</h2>
-                  </div>
-                </div>
-                <div className="card" style={{ width: "13rem" }}>
-                  <div className="card-body py-4">
-                    <span className="project-icon-bg p-3  ">
-                      <i className="fas fa-project-diagram fw-bold fa-xl"></i>
-                    </span>
-                    <h5 className="card-title mt-4">inactive</h5>
-                    <h2>{usersCount.inActiveUsersCount}</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {loginData?.userGroup == "Manager" ? (
+        <div className="d-flex justify-content-around flex-wrap  ">
+          <div className=" mx-4 mt-5">
+            <Doughnut data={taskdata} />
+          </div>
+          <div className=" mx-4 mt-5">
+            <Doughnut data={userdata} />
           </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-around flex-wrap  ">
-        <div className=" mx-4 mt-5">
-          <Doughnut data={taskdata} />
-        </div>
-        <div className=" mx-4 mt-5">
-          <Doughnut data={userdata} />
-        </div>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

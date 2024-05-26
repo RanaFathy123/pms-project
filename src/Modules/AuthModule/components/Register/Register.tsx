@@ -1,15 +1,14 @@
-import axios from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Avatar from "../../../../assets/images/Ellipse 1.png";
 import img1 from "../../../../assets/images/PMS 3.png";
-import { AuthContext } from "../../../../context/AuthContext";
+import { axiosInstance } from "../../../../axiosConfig/axiosInstance";
 import "../AuthModules.css";
 
 export default function Register() {
-  let { baseUrl } = useContext(AuthContext);
+
   const {
     handleSubmit,
     register,
@@ -57,8 +56,8 @@ export default function Register() {
   async function onSubmit(data: any) {
     let SubmitData = appendToFormData(data);
     try {
-      const res: any = await axios.post(
-        `${baseUrl}/Users/Register`,
+      const res: any = await axiosInstance.post(
+        `/Users/Register`,
         SubmitData
       );
       toast.success(

@@ -1,14 +1,13 @@
-import { useContext, useState } from "react";
-import logo from "../../../../../src/assets/images/PMS 3.png";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import "./ResetPassword.css";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../../context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import logo from "../../../../../src/assets/images/PMS 3.png";
+import { axiosInstance } from "../../../../axiosConfig/axiosInstance";
+import "./ResetPassword.css";
 
 export default function ResetPassword() {
-  const { baseUrl} = useContext(AuthContext);
+
   const [otpVisible, setOtpVisible] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
@@ -31,8 +30,8 @@ export default function ResetPassword() {
   };
   const onSubmit = async (data: any) => {
     try {
-      let respons = await axios.post(
-        `${baseUrl}/Users/Reset`,
+      let respons = await axiosInstance.post(
+        `/Users/Reset`,
         data
       );
       toast.success(respons.data.message);

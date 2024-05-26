@@ -11,6 +11,7 @@ export const AuthContext = createContext<AuthContextType>({
     userGroup: "",
   },
   saveLoginData: () => {},
+  resetLoginData:()=>{}
 });
 //  Context function
 export default function AuthContextProvider(props: PropsWithChildren) {
@@ -22,21 +23,17 @@ export default function AuthContextProvider(props: PropsWithChildren) {
     let decocodedData: any = jwtDecode(encodedData);
     setLoginData(decocodedData);
   };
+  const resetLoginData =()=>{
+    setLoginData(null)
+  }
   // call saveLogin data
   useEffect(() => {
     if (localStorage.getItem("token")) {
       saveLoginData();
     }
   }, []);
+  const value = { saveLoginData, loginData, baseUrl,resetLoginData };
   return (
-    <AuthContext.Provider
-      value={{
-        saveLoginData,
-        loginData,
-        baseUrl,
-      }}
-    >
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   );
 }

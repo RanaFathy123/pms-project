@@ -1,41 +1,99 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import { AuthContext } from "../../../../context/AuthContext";
+import DynamicHeader from "../../../SharedModules/components/DynamicHeader/DynamicHeader";
 import NoData from "../../../SharedModules/components/NoData/NoData";
-
+import { Link, useSearchParams } from "react-router-dom";
+import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
+import ResponsivePagination from "react-responsive-pagination";
+import "react-responsive-pagination/themes/classic.css";
 import "./TasksList.css";
-import { Link } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import DeleteData from "../../../SharedModules/components/DeleteData/DeleteData";
 
 export default function TasksList() {
   const [TasksList, setTasksList] = useState([]);
   const [showIconIndex, setShowIconIndex] = useState(null);
-
-  let { baseUrl, loginData } = useContext(AuthContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [showDelete, setDeleteShow] = useState(false);
+  const [itemId, setItemId] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const title = searchParams.get("title");
+  let { loginData } = useContext(AuthContext);
 
   const handleShowing = (index: any) => {
     setShowIconIndex(index === showIconIndex ? null : index);
   };
-
-  async function getTasksList() {
+  const handleDeleteClose = () => setDeleteShow(false);
+  const handleDeleteShow = (id: number) => {
+    setItemId(id);
+    setDeleteShow(true);
+  };
+  const deleteTask = async () => {
     try {
-      let response = await axios.get(
-        `${baseUrl}/Task/manager?title=&pageSize=15&pageNumber=`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
+      const response = await axiosInstanceWithHeaders.delete(`/Task/${itemId}`);
+      if (title) {
+        getTasksList(title, 5, currentPage);
+      } else {
+        getTasksList("", 5, currentPage);
+      }
+      console.log(response);
+      handleDeleteClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getTaskValue = (input: string) => {
+    if (title) {
+      getTasksList(title, 5, 1);
+      setSearchParams({ title: input });
+    } else {
+      getTasksList("", 5, 1);
+      setSearchParams({ title: input });
+    }
+  };
+  async function getTasksList(
+    title: string,
+    pageSize: number,
+    pageNumber: number
+  ) {
+    try {
+      let response = await axiosInstanceWithHeaders.get(
+        `/Task/manager?title=${title}&pageSize=${pageSize}&pageNumber=${pageNumber}`
       );
-      const tasks = response.data.data
+      const tasks = response.data.data;
       setTasksList(tasks);
+      const totalPages = response.data.totalNumberOfPages;
+      setTotalPages(totalPages);
+      const cuurentPage = response.data.pageNumber;
+      setCurrentPage(cuurentPage);
     } catch (error) {}
   }
 
   useEffect(() => {
-    getTasksList();
-  }, [loginData]);
+    if (title) {
+      getTasksList(title, 5, currentPage);
+    } else {
+      getTasksList("", 5, currentPage);
+    }
+  }, [loginData, title, currentPage]);
   return (
     <>
       <DynamicHeader title={"Tasks"} btn={"Task"} />
+      {/* Delete Project Module */}
+      <Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <h3>Delete Project</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <DeleteData deleteItem={"Project"} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={deleteTask}>
+            Delete this item
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {TasksList.length === 0 ? (
         <div className="container text-center">
           <NoData />
@@ -51,6 +109,9 @@ export default function TasksList() {
                     type="search"
                     placeholder="Search by title.."
                     className="rounded-pill form-control p-2 ps-5"
+                    onChange={(e) => {
+                      getTaskValue(e.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -128,7 +189,10 @@ export default function TasksList() {
                                       </Link>
                                       Edit
                                     </span>
-                                    <span className="text-success">
+                                    <span
+                                      className="text-success"
+                                      onClick={() => handleDeleteShow(Tasks.id)}
+                                    >
                                       {" "}
                                       <i className="fa-solid fa-trash my-1"></i>{" "}
                                       Delete
@@ -142,6 +206,11 @@ export default function TasksList() {
                       ))}
                     </tbody>
                   </table>
+                  <ResponsivePagination
+                    current={currentPage}
+                    total={totalPages}
+                    onPageChange={setCurrentPage}
+                  />
                 </div>
               </div>
             </div>

@@ -12,28 +12,26 @@ import { AuthContext } from "./AuthContext";
 export let AllUsersContext = createContext<AllUsersContextType>({
   getUsersList: () => {},
   allUsersList: [],
-  toggle: () => {},
   pageSize: [],
   GetTitleValue: () => {},
   GetUserValue: () => {},
+  TitleValue: "",
+  UserValue: "",
+  currentPageNumber: 0,
 });
 function AllUsersContextProvider(props: PropsWithChildren) {
-  const {loginData} = useContext(AuthContext)
-
   const [allUsersList, setAllUsersList] = useState([]);
-  const [isToggle, setIsToggle] = useState(false);
   const [TitleValue, setTitleValue] = useState("");
   const [UserValue, setIUserValue] = useState("");
-  const [pageSize, setPageSize]: any = useState([]);
+  const [pageSize, setPageSize] = useState<number[]>([]);
+  const [currentPageNumber, setCurrentPageNumber] = useState(0);
+  const { loginData } = useContext(AuthContext);
 
-  const toggle = () => {
-    setIsToggle(!isToggle);
-  };
   async function getUsersList(
-    userName: any,
-    group: any,
-    pageSize: any,
-    pageNumber: any
+    userName: string,
+    group: string,
+    pageSize: number | string,
+    pageNumber: number
   ) {
     try {
       let response = await axiosInstanceWithHeaders.get(
@@ -42,10 +40,13 @@ function AllUsersContextProvider(props: PropsWithChildren) {
           params: { userName: userName, group: group, pageSize, pageNumber },
         }
       );
-      setAllUsersList(response?.data?.data);
+      const allUsers = response.data.data;
+      setAllUsersList(allUsers);
+      const currentPageNumber = response.data.pageNumber;
+      setCurrentPageNumber(currentPageNumber);
       setPageSize(
-        Array(response?.data?.totalNumberOfPages)
-          .fill()
+        Array(response.data.totalNumberOfPages)
+          .fill(value)
           .map((_, i) => i + 1)
       );
     } catch (error) {}
@@ -66,13 +67,13 @@ function AllUsersContextProvider(props: PropsWithChildren) {
 
   const value = {
     allUsersList,
-    toggle,
     pageSize,
     getUsersList,
     GetTitleValue,
     GetUserValue,
     TitleValue,
     UserValue,
+    currentPageNumber,
   };
   return (
     <AllUsersContext.Provider value={value}>

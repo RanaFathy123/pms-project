@@ -60,34 +60,37 @@ export default function TasksBoard() {
     }
   };
   return (
-    <div className="container">
-      <div className="row justify-content-center text-center">
-        <div className="col-md-4">
-          <Column
-            title="To Do"
-            tasks={tasks}
-            status="ToDo"
-            changeTaskStatus={changeTaskStatus}
-          />
-        </div>
-        <div className="col-md-4">
-          <Column
-            title="In Progress"
-            tasks={tasks}
-            status="InProgress"
-            changeTaskStatus={changeTaskStatus}
-          />
-        </div>
-        <div className="col-md-4">
-          <Column
-            title="Done"
-            tasks={tasks}
-            status="Done"
-            changeTaskStatus={changeTaskStatus}
-          />
+    <>
+      <h3 className="mx-4">Tasks Board</h3>
+      <div className="container">
+        <div className="row justify-content-center text-center">
+          <div className="col-md-4">
+            <Column
+              title="To Do"
+              tasks={tasks}
+              status="ToDo"
+              changeTaskStatus={changeTaskStatus}
+            />
+          </div>
+          <div className="col-md-4">
+            <Column
+              title="In Progress"
+              tasks={tasks}
+              status="InProgress"
+              changeTaskStatus={changeTaskStatus}
+            />
+          </div>
+          <div className="col-md-4">
+            <Column
+              title="Done"
+              tasks={tasks}
+              status="Done"
+              changeTaskStatus={changeTaskStatus}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
   type Status = "ToDo" | "Done" | "InProgress";
   type ColumnProps = {
@@ -134,7 +137,7 @@ export default function TasksBoard() {
           <span>{title}</span>
           <span className="ms-auto">({filteredCards?.length})</span>
         </h4>
-        <div className="bg-secondary rounded min-vh-100 px-3 py-5">
+        <div className="bg-secondary w-100 rounded min-vh-100 px-3 py-5">
           {filteredCards.map((task) => (
             <Task key={task.id} task={task} />
           ))}

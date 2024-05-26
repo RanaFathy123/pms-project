@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
 import { AllUsersContext } from "../../../../context/AllUsersContext";
-import { Link } from "react-router-dom";
 
 export default function UsersList() {
   const {
@@ -12,15 +12,14 @@ export default function UsersList() {
     UserValue,
     GetTitleValue,
     GetUserValue,
-  }: any = useContext(AllUsersContext);
-
-
+    currentPageNumber,
+  } = useContext(AllUsersContext);
 
   async function toggledEmployee(id: number) {
+    
     try {
       let response = await axiosInstanceWithHeaders.put(`/Users/${id}`);
-      getUsersList();
-      console.log(response);
+      getUsersList("", "", 5, currentPageNumber);
     } catch (error) {
       console.log(error);
     }
@@ -73,6 +72,7 @@ export default function UsersList() {
                       <tr key={User.id}>
                         <td>{User.id}</td>
                         <td>
+                          
                           <img
                             src={`https://upskilling-egypt.com:3003/${User.imagePath}`}
                             style={{ width: "80px" }}
@@ -95,17 +95,10 @@ export default function UsersList() {
                         </td>
                         <td>{User.phoneNumber}</td>
                         <td>{User.email}</td>
-
                         <td>
                           {new Date(User.creationDate).toLocaleDateString(
                             "en-US"
                           )}
-
-                     
-
-                              
-                          
-    
                         </td>
                       </tr>
                     ))}

@@ -1,10 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
-import "./ProjectData.css";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../../../context/AuthContext";
-import { useContext } from "react";
-import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
+import "./ProjectData.css";
 
 export default function ProjectData() {
   interface projectData {
@@ -19,33 +17,28 @@ export default function ProjectData() {
   console.log(location);
   let status = location.state?.type === "update";
   let updateData = location.state?.updateData;
+  const navigate = useNavigate();
 
-  let { baseUrl } = useContext(AuthContext);
-  let {
-    register,
-    handleSubmit,
-    reset,
-  } = useForm<projectData>();
+  let { register, handleSubmit, reset } = useForm<projectData>();
 
   const onsubmitForm = async (data: projectData) => {
     try {
-      let respons = await axios({
+      let respons = await axiosInstanceWithHeaders({
         method: status ? "put" : "post",
-        url: status
-          ? `${baseUrl}/Project/${updateData.id}`
-          : `${baseUrl}/Project`,
+        url: status ? `/Project/${updateData.id}` : `/Project`,
         data: data,
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      status
-        ? toast.success("your Project Is Updated ")
-        : toast.success("your Project Is Created");
-
+      toast.success(
+        status ? "your Project Is Updated " : "your Project Is Created"
+      );
+      navigate("/dashboard/projects");
       console.log(respons);
     } catch (error: any) {
-      status
-        ? toast.error(error.message || "your Project Is Not Updated")
-        : toast.error(error.message || "your Project Is Not Created");
+      toast.error(
+        status
+          ? error.message || "your Project Is Not Updated"
+          : error.message || "your Project Is Not Created"
+      );
     }
   };
 

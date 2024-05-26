@@ -27,25 +27,23 @@ export default function NavBar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link " to="">
-                  <i className="fa-solid fa-bell pt-2 ps-3  text-warning fa-2x"></i>
-                </Link>
               </li>
               <li className="nav-item">
-                <div className="d-flex">
-                <div>
-                  <img
-                    src={avatar}
-                    className=" pe-2 rounded rounded-circle"
-                    alt=""
-                  />
+                <div className="d-flex align-items-center">
+                <i className="fa-solid fa-bell pt-2 ps-3  text-warning fa-2x mx-3 "></i>
+
+                  <div>
+                    <img
+                      src={avatar}
+                      className=" rounded rounded-circle"
+                      alt=""
+                    />
+                  </div>
+                  <div className="d-flex flex-column mx-3">
+                    <span>{loginData?.userName}</span>
+                    <span className="text-muted">{loginData?.userEmail}</span>
+                  </div>
                 </div>
-                <div className="d-flex flex-column mx-3">
-                  <span>{loginData?.userName}</span>
-                  <span className="text-muted">{loginData?.userEmail}</span>
-                </div>
-                </div>
-              
               </li>
             </ul>
           </div>

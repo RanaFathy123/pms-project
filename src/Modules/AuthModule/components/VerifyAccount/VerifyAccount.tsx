@@ -1,24 +1,21 @@
-import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import img1 from "../../../../assets/images/PMS 3.png";
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../../../../context/AuthContext';
+import img1 from "../../../../assets/images/PMS 3.png";
+import { axiosInstance } from '../../../../axiosConfig/axiosInstance';
 
 export default function VerifyAccount() {
-  let {baseUrl}= useContext(AuthContext)
 
     const { handleSubmit, register,formState: { errors  ,isDirty ,isValid} } = useForm();
   const Navigate=  useNavigate()
 
     async function onSubmit (data:any) {
         try {
-            const res = await axios.put(`${baseUrl}/Users/verify`, data);
+            const res = await axiosInstance.put(`/Users/verify`, data);
             console.log(res);
             toast.success(res?.data?.message || 'your account has benn verified')
             Navigate('/login')
-        } catch (error) {
+        } catch (error:any) {
             console.log(error);
             toast.success(error?.res?.data?.message || "there's an error" )
 

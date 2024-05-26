@@ -6,7 +6,6 @@ export const emailValidation = {
     message: "Email is invalid",
   },
 };
-
 export const passwordValidation = {
   required: "Password is required",
   minLength: {
@@ -20,7 +19,6 @@ export const passwordValidation = {
       "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character",
   },
 };
-
 export const userNameValidation = {
   required: "Username is required",
   minLength: {
@@ -33,7 +31,6 @@ export const userNameValidation = {
       "Username must contain characters and end with numbers without spaces",
   },
 };
-
 export const countryValidation = {
   required: "Country is required",
   minLength: {
@@ -49,7 +46,6 @@ export const countryValidation = {
     message: "Country is invalid (only letters)",
   },
 };
-
 export const phoneNumberValidation = {
   required: "Phone Number is required",
   pattern: {
@@ -57,7 +53,6 @@ export const phoneNumberValidation = {
     message: "Invalid phone number format (01XXXXXXXXX)",
   },
 };
-
 export const OTPValidation = {
   required: "OTP is required",
   minLength: {
@@ -69,7 +64,6 @@ export const OTPValidation = {
     message: "OTP must be exactly 4 characters long",
   },
 };
-
 export const titleValidation = {
   required: "Title is required",
 };

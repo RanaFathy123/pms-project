@@ -10,5 +10,10 @@ export interface Project {
 
 export interface ProjectContextType {
   projectsList: Project[];
-  getProjectsList:()=>void
+  getProjectsList: (
+    title: string,
+    pageSize: number | string,
+    pageNumber: number
+  ) => void;
+  totalPages:number
 }

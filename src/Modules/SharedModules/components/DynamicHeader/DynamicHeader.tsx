@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../context/AuthContext";
 
 interface DynamicHeaderInterface {
   title: string;
@@ -6,6 +8,7 @@ interface DynamicHeaderInterface {
 }
 
 export default function DynamicHeader({ title, btn }: DynamicHeaderInterface) {
+  const { loginData } = useContext(AuthContext);
   const navigate = useNavigate();
   const goToComponent = () => {
     if (btn == "Task") {
@@ -22,9 +25,16 @@ export default function DynamicHeader({ title, btn }: DynamicHeaderInterface) {
             <h4 className="Dynamic-heading">{title}</h4>
           </div>
           <div className=" col-md-3 col-lg-3 col-xl-2 ">
-            <button className="btn rounded-pill btn-class text-white " onClick={goToComponent}>
-              + Add New {btn}
-            </button>
+            {loginData?.userGroup == "Manager" ? (
+              <button
+                className="btn rounded-pill btn-class text-white "
+                onClick={goToComponent}
+              >
+                + Add New {btn}
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

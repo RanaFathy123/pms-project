@@ -36,6 +36,7 @@ export interface AuthContextType {
   baseUrl?: string;
   loginData: LoginData | null;
   saveLoginData: () => void;
+  resetLoginData:()=>void  
 }
 
 

@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form";
-import "./ForgetPassword.css";
-import logo from "../../../../../src/assets/images/PMS 3.png";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../../../context/AuthContext";
+import { toast } from "react-toastify";
+import logo from "../../../../../src/assets/images/PMS 3.png";
+import { axiosInstance } from "../../../../axiosConfig/axiosInstance";
+import "./ForgetPassword.css";
 
 export default function ForgetPassword() {
-  const { baseUrl } = useContext(AuthContext);
+
   let navigat = useNavigate();
 
   let {
@@ -19,8 +17,8 @@ export default function ForgetPassword() {
 
   const onSubmit = async (data: any) => {
     try {
-      let response = await axios.post(
-        `${baseUrl}/Users/Reset/Request`,
+      let response = await axiosInstance.post(
+        `/Users/Reset/Request`,
         data
       );
       toast.success(response.data.message);
