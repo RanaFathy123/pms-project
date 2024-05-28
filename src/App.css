@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 :root {
   --main-color: rgba(239, 155, 40, 1);
 }
@@ -17,7 +16,7 @@
   --h2-Dynamic: #4f4f4f;
 }
 
-.color{
+.color {
   color: var(--main-color) !important;
 }
 
@@ -49,9 +48,9 @@ body {
   background-color: var(--main-color) !important;
 }
 
-.height {
-  min-height: 85%;
-}
+/* .height { */
+  /* min-height: 85%; */
+/* } */
 .icons {
   z-index: 55;
   top: 2.7rem;
@@ -76,8 +75,10 @@ body {
   top: -13px;
   right: 1.8em;
 }
-th{background-color: var(--th-color) !important;
-  color: var(--white-color) !important;}
+th {
+  background-color: var(--th-color) !important;
+  color: var(--white-color) !important;
+}
 
 .Auth-container {
   background-image: url(../src/assets/images/bg1.png);
@@ -146,7 +147,7 @@ button.submit {
   width: 100px;
   outline: none;
   border: none;
-  height: 100px;
+  /* height: 100px; */
 }
 
 .upload {
@@ -175,9 +176,9 @@ input:-webkit-autofill:focus {
   background-color: var(--main-color) !important;
 }
 
-.height {
-  min-height: 100%;
-}
+/* .height { */
+  /* min-height: 100%; */
+/* } */
 
 .icons {
   top: 30px;
@@ -189,9 +190,9 @@ th {
   color: white !important;
 }
 
-.search{
+.search {
   top: 12px;
-  left:30px
+  left: 30px;
 }
 
 .grabbable {
@@ -224,6 +225,8 @@ th {
   font-family: Montserrat;
   font-size: 36px;
   font-weight: 400;
+  padding: 15px;
+
   line-height: 43.88px;
 }
 /* imgDashBoard */
@@ -233,7 +236,7 @@ th {
   background-size: cover;
   width: 100%;
   color: white;
-  height: 330px;
+ 
 }
 .head {
   border-left: #ef9b28 solid 5px;
@@ -247,3 +250,4 @@ th {
   background: #e7c3d7;
   border-radius: 15px;
 }
+

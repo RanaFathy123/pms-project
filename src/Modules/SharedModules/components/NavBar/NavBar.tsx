@@ -8,7 +8,7 @@ export default function NavBar() {
   const { loginData } = useContext(AuthContext);
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg  navbar-light bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="">
             <img src={navlogo} alt="" />

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
 import { AllUsersContext } from "../../../../context/AllUsersContext";
+import Nodata from "../../../../assets/images/no-data.png";
 
 export default function UsersList() {
   const {
@@ -16,7 +17,6 @@ export default function UsersList() {
   } = useContext(AllUsersContext);
 
   async function toggledEmployee(id: number) {
-    
     try {
       let response = await axiosInstanceWithHeaders.put(`/Users/${id}`);
       getUsersList("", "", 5, currentPageNumber);
@@ -72,12 +72,21 @@ export default function UsersList() {
                       <tr key={User.id}>
                         <td>{User.id}</td>
                         <td>
-                          
-                          <img
-                            src={`https://upskilling-egypt.com:3003/${User.imagePath}`}
-                            style={{ width: "80px" }}
-                            alt=""
-                          />
+                          {User.imagePath ? (
+                            <img
+                              src={`https://upskilling-egypt.com:3003/${User.imagePath}`}
+                              className="rounded border border-1"
+                              style={{ width: "56px", height: "56px" }}
+                              alt=""
+                            />
+                          ) : (
+                            <img
+                              src={Nodata}
+                              className="rounded border border-1"
+                        style={{ width: "56px", height: "56px" }}
+                              alt=""
+                            />
+                          )}
                         </td>
                         <td>{User.userName}</td>
                         <td>

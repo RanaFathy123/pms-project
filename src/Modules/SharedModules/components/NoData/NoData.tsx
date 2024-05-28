@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Nodata from '../../../../assets/images/no-data.png'
  
 function NoData() {

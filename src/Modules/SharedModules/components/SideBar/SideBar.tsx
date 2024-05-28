@@ -1,30 +1,9 @@
-// import { useNavigate } from 'react-router-dom'
 
-// export default function SideBar() {
-//   const navigate=useNavigate()
-
-//   const Logout=()=>{
-//     localStorage.removeItem('token');
-//     navigate('/login');
-//   };
-
-//   return <>
-//   <div>Sidebar</div>
-//     <button className='mt-2 btn btn-success' type='button'  onClick={Logout} >
-//       <i className="fa-solid fa-right-from-bracket"></i>
-//        LogOut
-//        </button>
-
-//   </>
-// }
-
-// eslint-disable-next-line no-unused-vars
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-// import Modal from 'react-bootstrap/Modal';
-// import toggler from '../../../../assets/img/3.png';
+
 import "./SideBar.css";
 import ChangePassword from "../../../AuthModule/components/ChangePassword/ChangePassword";
 import { Modal } from "react-bootstrap";
@@ -58,8 +37,8 @@ export default function SideBar() {
         </Modal.Body>
       </Modal>
 
-      <div className=" sidebar-container">
-        <Sidebar collapsed={isCollapsed}>
+      <div className="sidebar-container">
+        <Sidebar collapsed={isCollapsed}  >
           <Menu>
             <MenuItem className=" text-end " onClick={toggleCollapsed}>
               {isCollapsed ? (

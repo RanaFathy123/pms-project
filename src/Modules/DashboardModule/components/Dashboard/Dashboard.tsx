@@ -76,15 +76,16 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="container">
-        <div className="container mt-5 p-3 bgHeaderh ">
+    
+ <div className="container py-0">
+        <div className="  bgHeaderh  mt-2 py-5">
           <div className="row d-flex justify-content-center align-align-items-center">
-            <div className="col-md-8 col-lg-9 col-xl-10 my-md-3 ">
-              <h5 className="m-0 DashBoard text-white pt-5">
+            <div className="col-md-8 col-lg-9 col-xl-10 ">
+              <h5 className="m-0 DashBoard text-white ">
                 Welcome{" "}
                 <span className="DashBoardSpan">{loginData?.userName}</span>{" "}
               </h5>
-              <p className=" DashBoard mt-4 text-white">
+              <p className=" DashBoard text-white">
                 You can add project and assign tasks to your team
               </p>
             </div>
@@ -156,7 +157,7 @@ export default function Dashboard() {
         ""
       )}
       {loginData?.userGroup == "Manager" ? (
-        <div className="d-flex justify-content-around flex-wrap  ">
+        <div className="d-flex justify-content-around flex-wrap  py-4">
           <div className=" mx-4 mt-5">
             <Doughnut data={taskdata} />
           </div>

@@ -1,14 +1,14 @@
-:root{
-    --ToDo-bg:#E4E1F5;
-    --Done-bg: #009247;
-    --InProgress:#EF9B28A3;
-}
-
-.row>* {
-  padding-right: 0 !important; 
- padding-left:0 !important;
-}
-
+/* :root{ */
+    /* --ToDo-bg:#E4E1F5; */
+    /* --Done-bg: #009247; */
+    /* --InProgress:#EF9B28A3; */
+/* } */
+/*  */
+/* .row>* { */
+  /* padding-right: 0 !important;  */
+ /* padding-left:0 !important; */
+/* } */
+/*  */
 .btn-Done{
     background-color:var(--Done-bg) !important;
     
