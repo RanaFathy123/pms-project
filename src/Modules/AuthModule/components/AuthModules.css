@@ -1,10 +1,10 @@
 
-.Auth-container{
-    background-image: url(../../../../assets/images/bg3.png);
-    background-position: center ;
-    background-repeat: no-repeat;
-    background-size: cover;
-    }
+.Auth-container {
+  background-image: url("./src/assets/images/bg3.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
     
     form{background:var(--form-color);
     }
