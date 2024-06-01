@@ -16,4 +16,5 @@ export interface ProjectContextType {
     pageNumber: number
   ) => void;
   totalPages:number
+  currentPageNumber:number
 }

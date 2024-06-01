@@ -49,7 +49,7 @@ body {
 }
 
 /* .height { */
-  /* min-height: 85%; */
+/* min-height: 85%; */
 /* } */
 .icons {
   z-index: 55;
@@ -177,7 +177,7 @@ input:-webkit-autofill:focus {
 }
 
 /* .height { */
-  /* min-height: 100%; */
+/* min-height: 100%; */
 /* } */
 
 .icons {
@@ -236,7 +236,6 @@ th {
   background-size: cover;
   width: 100%;
   color: white;
- 
 }
 .head {
   border-left: #ef9b28 solid 5px;
@@ -251,3 +250,191 @@ th {
   border-radius: 15px;
 }
 
+.left-side-not-collapsed {
+  padding-left: 15em;
+}
+.fa-solid.fa-bars {
+  font-size: 20px;
+  z-index: 20;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  color: white;
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .left-side-not-collapsed {
+    padding-left: 0;
+  }
+  .navbar {
+    z-index: 0 !important;
+    position: absolute !important;
+  }
+  .fa-solid.fa-bars {
+    display: block;
+    /* z-index: 5 !important; */
+    margin: 0.7em;
+  }
+  .icon-toogle {
+    margin-top: 0;
+  }
+}
+.icon-toogle {
+  margin-top: 4em;
+}
+@media (max-width: 888px) {
+  .triangleUp {
+    left: 1.8em;
+  }
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -10000px;
+    left: -10000px;
+  }
+
+  tr {
+    border-bottom: 1px solid #ccc;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 80%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 35%;
+    padding-right: 35px;
+    white-space: nowrap;
+  }
+  .projects-table td:nth-of-type(1):before {
+    content: "#";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(2):before {
+    content: "Title";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(3):before {
+    content: "Nums Tasks";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(4):before {
+    content: "Users";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(5):before {
+    content: "Project";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(6):before {
+    content: "Creation Date";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .projects-table td:nth-of-type(7):before {
+    content: "Actions";
+    margin: 2px;
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+
+  .tasks-table td:nth-of-type(1):before {
+    content: "#";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(2):before {
+    content: "Title";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(3):before {
+    content: "Status";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(4):before {
+    content: "Users";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(5):before {
+    content: "Projects";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(6):before {
+    content: "Creations Date";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .tasks-table td:nth-of-type(7):before {
+    content: "Actions";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  }
+  .users-table td:nth-of-type(1):before {
+    content: "#";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  } 
+  .users-table td:nth-of-type(2):before {
+    content: "Image";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  } 
+  .users-table td:nth-of-type(3):before {
+    content: "User Name";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  } 
+  .users-table td:nth-of-type(4):before {
+    content: "Status";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  } 
+  .users-table td:nth-of-type(5):before {
+    content: "Phone Number";
+    color: #0e382f !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+  } 
+}

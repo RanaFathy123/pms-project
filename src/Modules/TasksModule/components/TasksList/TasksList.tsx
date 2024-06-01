@@ -17,6 +17,8 @@ export default function TasksList() {
   const [totalPages, setTotalPages] = useState(0);
   const [showDelete, setDeleteShow] = useState(false);
   const [itemId, setItemId] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+
   const [searchParams, setSearchParams] = useSearchParams();
   const title = searchParams.get("title");
   let { loginData } = useContext(AuthContext);
@@ -73,6 +75,7 @@ export default function TasksList() {
   useEffect(() => {
     if (title) {
       getTasksList(title, 5, currentPage);
+      setInputValue(title);
     } else {
       getTasksList("", 5, currentPage);
     }
@@ -106,18 +109,20 @@ export default function TasksList() {
                 <div className="search-container position-relative my-3 px-3">
                   <i className="fa fa-search position-absolute search"></i>
                   <input
+                    value={inputValue}
                     type="search"
                     placeholder="Search by title.."
                     className="rounded-pill form-control p-2 ps-5"
                     onChange={(e) => {
                       getTaskValue(e.target.value);
+                      setInputValue(e.target.value);
                     }}
                   />
                 </div>
               </div>
               <div className="col-md-12 col-sm-12">
                 <div className="table-responsive-sm table-responsive-md">
-                  <table className="table table-striped text-center w-100">
+                  <table className="table table-striped text-center w-100 tasks-table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -125,7 +130,7 @@ export default function TasksList() {
                         <th scope="col">Status </th>
                         <th scope="col">Users </th>
                         <th scope="col">Project </th>
-                        <th scope="col">Creation Date </th>
+                        <th scope="col">Creation Date</th>
                         <th scope="col">Actions </th>
                       </tr>
                     </thead>
@@ -136,21 +141,21 @@ export default function TasksList() {
                           <td>{Tasks.title}</td>
                           <td>
                             {Tasks.status === "InProgress" ? (
-                              <button className="btn rounded-pill btn-Done text-white">
+                              <button className="btn rounded-pill btn-primary text-white">
                                 {Tasks.status}
                               </button>
                             ) : (
                               ""
                             )}
                             {Tasks.status === "ToDo" ? (
-                              <button className="btn rounded-pill btn-ToDo text-white">
+                              <button className="btn rounded-pill btn-warning text-white">
                                 {Tasks.status}
                               </button>
                             ) : (
                               ""
                             )}
                             {Tasks.status === "Done" ? (
-                              <button className="btn rounded-pill btn-InProgress text-white">
+                              <button className="btn rounded-pill btn-success text-white">
                                 {Tasks.status}
                               </button>
                             ) : (

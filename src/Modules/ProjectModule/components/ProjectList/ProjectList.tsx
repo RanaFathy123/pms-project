@@ -14,34 +14,38 @@ import "react-responsive-pagination/themes/classic.css";
 export default function ProjectList() {
   const [showIconIndex, setShowIconIndex] = useState(null);
   const [showDelete, setDeleteShow] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemId, setItemId] = useState(0);
+  const [inputValue, setInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const title = searchParams.get("title");
+
   const { loginData } = useContext(AuthContext);
-  let { projectsList, getProjectsList, totalPages } =
+  
+  let { projectsList, getProjectsList, totalPages, currentPageNumber } =
     useContext(ProjectContext);
+  const [currentPage, setCurrentPage] = useState(currentPageNumber);
 
   const handleDeleteClose = () => setDeleteShow(false);
   const handleDeleteShow = (id: number) => {
     setItemId(id);
     setDeleteShow(true);
   };
+  const title = searchParams.get("title");
 
   const getProjectValue = (inputData: string) => {
     if (title) {
-      getProjectsList(title, 5, currentPage);
+      getProjectsList(title, 7, currentPage);
       setSearchParams({ title: inputData });
     } else {
-      getProjectsList("", 5, 1);
+      getProjectsList("", 7, currentPage);
       setSearchParams({ title: inputData });
     }
   };
   useEffect(() => {
     if (title) {
-      getProjectsList(title, 5, currentPage);
+      getProjectsList(title, 7, currentPage);
+      setInputValue(title);
     } else {
-      getProjectsList("", 5, currentPage);
+      getProjectsList("", 7, currentPage);
     }
   }, [title, loginData, currentPage]);
 
@@ -51,9 +55,10 @@ export default function ProjectList() {
         `/Project/${itemId}`
       );
       if (title) {
-        getProjectsList(title, 5, currentPage);
+        getProjectsList(title, 7, currentPage);
+        setInputValue(title);
       } else {
-        getProjectsList("", 5, currentPage);
+        getProjectsList("", 7, currentPage);
       }
       console.log(response);
       handleDeleteClose();
@@ -95,9 +100,11 @@ export default function ProjectList() {
                 <div className="search-container position-relative my-3 px-3">
                   <i className="fa fa-search position-absolute "></i>
                   <input
+                    value={inputValue}
                     type="search"
                     onChange={(e) => {
                       getProjectValue(e.target.value);
+                      setInputValue(e.target.value);
                     }}
                     placeholder="Search by title.."
                     className="rounded-pill form-control p-2 ps-5"
@@ -106,7 +113,7 @@ export default function ProjectList() {
               </div>
               <div className="col-md-12 col-sm-12 ">
                 <div className="table-responsive-sm table-responsive-md">
-                  <table className="table table-striped text-center w-100">
+                  <table className="table table-striped text-center w-100 projects-table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>

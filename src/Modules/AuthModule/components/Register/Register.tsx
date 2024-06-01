@@ -75,7 +75,7 @@ export default function Register() {
       <div className="Auth-container">
         <div className="container-fluid ">
           <div className="row justify-content-center align-items-center min-vh-100">
-            <div className="w-75">
+            <div className="col-md-6 w-75 ">
               <div className="image text-center">
                 <img src={img1} alt="" />
               </div>

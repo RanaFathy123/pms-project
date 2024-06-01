@@ -13,11 +13,12 @@ export const ProjectContext = createContext<ProjectContextType>({
   projectsList: [],
   getProjectsList: () => {},
   totalPages: 0,
+  currentPageNumber:1
 });
 
 function ProjectContextProvider(props: PropsWithChildren) {
   const [projectsList, setProjectsList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const { loginData } = useContext(AuthContext);
   const title = new URLSearchParams(window.location.search).get("title") || "";
@@ -37,8 +38,8 @@ function ProjectContextProvider(props: PropsWithChildren) {
       console.log(response.data.totalNumberOfPages);
       const totalPages = response.data.totalNumberOfPages;
       setTotalPages(totalPages);
-      const cuurentPage = response.data.pageNumber;
-      setCurrentPage(cuurentPage);
+      const currentPage = response.data.pageNumber;
+      setCurrentPageNumber(currentPage);
       const projects = response.data.data;
       setProjectsList(projects);
     } catch (error) {}
@@ -47,15 +48,15 @@ function ProjectContextProvider(props: PropsWithChildren) {
     const title =
       new URLSearchParams(window.location.search).get("title") || "";
     if (title == "") {
-      getProjectsList("", 5, 1);
+      getProjectsList("", 7, currentPageNumber);
     } else {
-      getProjectsList(title, 5, 1);
+      getProjectsList(title, 7, currentPageNumber);
     }
-  }, [loginData, title]);
+  }, [loginData, title,currentPageNumber]);
 
   return (
     <ProjectContext.Provider
-      value={{ projectsList, getProjectsList, totalPages }}
+      value={{ projectsList, getProjectsList, totalPages,currentPageNumber}}
     >
       {props.children}
     </ProjectContext.Provider>

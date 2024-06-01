@@ -56,7 +56,7 @@ export default function Login() {
       <div className="Auth-container">
         <div className="container-fluid ">
           <div className="row min-vh-100  justify-content-center align-items-center">
-            <div className="w-50">
+            <div className="col-md-6">
               <div className="mt-5 text-center">
                 <img src={logo} alt="" />
               </div>

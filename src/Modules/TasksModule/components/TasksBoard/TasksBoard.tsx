@@ -53,7 +53,9 @@ export default function TasksBoard() {
             },
           }
         );
+        
         setIsTaskChanged(!isTaskChanged);
+        return response
       }
     } catch (error) {
       setIsTaskChanged(!isTaskChanged);
@@ -61,7 +63,7 @@ export default function TasksBoard() {
   };
   return (
     <>
-      <h3 className="mx-4">Tasks Board</h3>
+      <h3 className="mx-5 px-5">Tasks Board</h3>
       <div className="container">
         <div className="row justify-content-center text-center">
           <div className="col-md-4">

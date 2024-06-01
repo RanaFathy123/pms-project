@@ -12,8 +12,8 @@ import {
 import { AuthContext } from "../../../../context/AuthContext";
 
 export default function TasksData() {
-  const [projectId,setProjectId]=useState('')
-  const[userId,setUserId]=useState('')
+  const [projectId, setProjectId] = useState("");
+  const [userId, setUserId] = useState("");
   const { state } = useLocation();
   const { Tasks, type } = state || {};
   console.log(Tasks, type);
@@ -43,7 +43,9 @@ export default function TasksData() {
       });
       navigate("/dashboard/tasks");
       toast.success(
-        type && Tasks ? "Task Updated Successfully" : "Task added Successfully"
+        type && Tasks
+          ? response.data.message || "Task Updated Successfully"
+          : response.data.message || "Task added Successfully"
       );
     } catch (error) {
       console.log(error);
@@ -76,8 +78,8 @@ export default function TasksData() {
     if (Tasks && type) {
       setValue("title", Tasks.title);
       setValue("description", Tasks.description);
-      setProjectId(Tasks.project?.id)
-      setUserId(Tasks.employee?.id)
+      setProjectId(Tasks.project?.id);
+      setUserId(Tasks.employee?.id);
     }
   }, [loginData]);
 
@@ -141,12 +143,11 @@ export default function TasksData() {
                         </label>
                         <select
                           value={userId}
-
                           className="form-select"
                           id="userId"
                           {...register("employeeId", {
-                            onChange: (e:any) => {
-                              setUserId(e.target.value)
+                            onChange: (e: any) => {
+                              setUserId(e.target.value);
                             },
                           })}
                         >
@@ -173,8 +174,8 @@ export default function TasksData() {
                           value={projectId}
                           className="form-select"
                           {...register("projectId", {
-                            onChange: (e:any) => {
-                             setProjectId(e.target.value)
+                            onChange: (e: any) => {
+                              setProjectId(e.target.value);
                             },
                           })}
                           id="projectId"

@@ -1,4 +1,3 @@
-
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
@@ -9,13 +8,14 @@ import ChangePassword from "../../../AuthModule/components/ChangePassword/Change
 import { Modal } from "react-bootstrap";
 import { AuthContext } from "../../../../context/AuthContext";
 
-export default function SideBar() {
-  const [isCollapsed, setIsCollapse] = useState(false);
+export default function SideBar({ isCollapsed, setIsCollapse }: any) {
   const { loginData } = useContext(AuthContext);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [toggled, setToggled] = useState(false);
+
   const { resetLoginData } = useContext(AuthContext);
   const toggleCollapsed = () => {
     setIsCollapse(!isCollapsed);
@@ -36,18 +36,28 @@ export default function SideBar() {
           <ChangePassword />
         </Modal.Body>
       </Modal>
-
       <div className="sidebar-container">
-        <Sidebar collapsed={isCollapsed}  >
+        <i
+          className="fa-solid fa-bars btn btn-warning py-2 position-relative z-3"
+          onClick={() => setToggled(!toggled)}
+        ></i>
+        <Sidebar
+          collapsed={isCollapsed}
+          breakPoint="lg"
+          onBackdropClick={() => setToggled(false)}
+          toggled={toggled}
+        >
           <Menu>
-            <MenuItem className=" text-end " onClick={toggleCollapsed}>
+            <MenuItem
+              className="text-end icon-toogle"
+              onClick={toggleCollapsed}
+            >
               {isCollapsed ? (
                 <i className="fa-solid fa-chevron-right p-2  fa-s position-absolute end-0 container-chevron"></i>
               ) : (
                 <i className="fa-solid fa-chevron-left p-2 fa-s position-absolute end-0 container-chevron"></i>
               )}
             </MenuItem>
-
             <MenuItem
               icon={<i className="fa-solid fa-house"></i>}
               component={<Link to="/dashboard" />}

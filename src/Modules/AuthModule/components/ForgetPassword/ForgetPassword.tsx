@@ -32,7 +32,7 @@ export default function ForgetPassword() {
       <div className="Authcontainer">
         <div className="container ">
           <div className="row justify-content-center align-items-center vh-100 ">
-            <div className="col-md-6  ">
+            <div className="col-md-6 ">
               <div className="image w-50 m-auto">
                 <img src={logo} alt="Logo" className="w-100" />
               </div>

@@ -41,7 +41,7 @@ export default function ChangePassword() {
         data
       );
       // logout();
-      toast.success("Password has been updated successfully");
+      toast.success(response.data.message ||"Password has been updated successfully");
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
