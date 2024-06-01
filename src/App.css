@@ -80,12 +80,12 @@ th {
   color: var(--white-color) !important;
 }
 
-.Auth-container {
-  background-image: url(../../../../assets/images/bg3.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+/* .Auth-container { */
+  /* background-image: url(../../../../assets/images/bg3.png); */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+/* } */
 
 form {
   background: rgba(49, 89, 81, 0.9);
