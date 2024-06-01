@@ -8,7 +8,7 @@ export default function VerifyAccount() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm();
   const Navigate = useNavigate();
 
@@ -89,7 +89,7 @@ export default function VerifyAccount() {
                     <button
                       className="btn text-white rounded-pill submit"
                       type="submit"
-                      disabled={!isDirty || !isValid}
+                     
                     >
                       Save
                     </button>

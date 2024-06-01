@@ -13,7 +13,7 @@ export default function Register() {
     handleSubmit,
     register,
     watch,
-    formState: { errors, isDirty, isValid },
+    formState: { errors  },
   } = useForm();
   const Navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState("");
@@ -285,7 +285,7 @@ export default function Register() {
                 <div className="button">
                   <div className="d-grid gap-2 col-5 mx-auto my-3">
                     <button
-                      disabled={!isDirty || !isValid}
+          
                       className="btn text-white rounded-pill submit"
                       type="submit"
                     >
