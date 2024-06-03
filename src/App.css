@@ -339,7 +339,7 @@ th {
     font-weight: 700 !important;
   }
   .projects-table td:nth-of-type(4):before {
-    content: "Users";
+    content: "Date";
     color: #0e382f !important;
     font-size: 15px !important;
     font-weight: 700 !important;
