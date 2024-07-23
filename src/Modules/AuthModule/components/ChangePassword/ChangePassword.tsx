@@ -11,7 +11,7 @@ export default function ChangePassword() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+
   } = useForm<FormDataChangPass>();
 
   // Password eye
@@ -185,18 +185,7 @@ export default function ChangePassword() {
                       color: showConfirmPassword ? "white" : "",
                     }}
                     placeholder="Confirm New Password"
-                    {...register("confirmNewPassword", {
-                      required: "confirmNewPassword is required ",
-                      validate: (value) =>
-                        value === watch("newPassword") ||
-                        "the passwords dont match ",
-                      pattern: {
-                        value:
-                          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-                        message:
-                          "Password must contain at least 8 characters, including upper and lowercase letters, and numbers",
-                      },
-                    })}
+                   
                   />
                   {/* button eye password */}
                   <button

@@ -94,7 +94,7 @@ export default function TasksData() {
       </div>
       <>
         <div>
-          <div className="container-fluid  ">
+          <div className="container-fluid ">
             <div className="row mt-5 h-100 justify-content-center align-items-center ">
               <div className="col-md-9 bg-white p-5  rounded  form-body shadow-lg">
                 <div className="form-content p-3">
@@ -142,12 +142,13 @@ export default function TasksData() {
                           User
                         </label>
                         <select
-                          value={userId}
+                          value={type ? userId : ""}
                           className="form-select"
                           id="userId"
                           {...register("employeeId", {
                             onChange: (e: any) => {
                               setUserId(e.target.value);
+                              
                             },
                           })}
                         >

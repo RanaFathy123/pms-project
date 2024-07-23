@@ -17,12 +17,8 @@ import {
 // Function
 export default function Login() {
   const { saveLoginData } = useContext(AuthContext);
-
-
   const navigate = useNavigate();
 
-  // useForm
-  // FormData : interface (Auth.ts)
   const {
     register,
     handleSubmit,
@@ -44,7 +40,6 @@ export default function Login() {
       toast.success("Login Success", response.data.message);
       saveLoginData();
       navigate("/dashboard");
-
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Login Fail");

@@ -1,8 +1,8 @@
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../../context/AuthContext";
-import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { axiosInstanceWithHeaders } from "../../../../axiosConfig/axiosInstance";
+import { AuthContext } from "../../../../context/AuthContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

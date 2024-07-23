@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { loginData } = useContext(AuthContext);
 
   if (localStorage.getItem("token") || loginData) {
-    return <>{children}</>;
+    return children;
   } else {
     return <Navigate to="/login" />;
   }
