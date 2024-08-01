@@ -5,12 +5,14 @@ import "react-toastify/dist/ReactToastify.css";
 import logo from "../../../../../src/assets/images/PMS 3.png";
 import { axiosInstance } from "../../../../axiosConfig/axiosInstance";
 import "./ResetPassword.css";
+import { useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
 
   const [otpVisible, setOtpVisible] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
+  const navigate = useNavigate()
 
   const {
     register,
@@ -35,6 +37,7 @@ export default function ResetPassword() {
         data
       );
       toast.success(respons.data.message);
+      navigate('/login')
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
